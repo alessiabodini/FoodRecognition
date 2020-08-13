@@ -1,0 +1,37 @@
+KNN:
+
+Metric = Euclidean:
+    K = 1: 1,10%
+    K = 3: 1,70%
+    K = 7: 1,20%
+
+Metric = Correlation:
+    K = 1: 1,70%
+    K = 3: 1,10%
+    K = 7: 0,80%
+
+Metric = Cosine
+    K = 1: 1,00%
+    K = 3: 1,00%
+    K = 7: 0,70%
+
+
+SVM:
+
+Kernel = Linear:
+    Iterations = 10: 1,30% (Precision = _, Recall = 0,01)
+    Iterations = 100: 1,50% (2h)
+    Iterations = 100 with 100 features: 1,20% (Precision = 0,01, Recall = 0,18)
+    Iterations = 1000 with 100 features: 0,80% (Precision = 0,19, Recall = 0,14)
+
+Kernel = Poly:
+    Iterations = 10: 1,30% (Precision = 0,13, Recall = 0,12)
+
+Kernel = RBF:
+    Iterations = 10: 1,10% (Precision = 0,04, Recall = 0,15)
+    Iterations = 100 with 100 features: 0,80% (Precision = 0,01, Recall = 1)
+    Iterations = 1000 with 100 features: 1,10% (Precision = 0,04, Recall = 0,10)
+
+Kernel = Sigmoid:
+    Iterations = 10: 0,90% (Precision = 0,01, Recall = 1)
+    
