@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.svm import SVC
 from matplotlib import pyplot as plt
 
-def svm(train_set, test_set, train_labels, test_labels, classes):
+def svm(train_set, test_set, train_labels, test_labels):
 
     # 1. Initialize parameters 
     kernel = 'rbf' # linear or poly or rbf
@@ -17,7 +17,7 @@ def svm(train_set, test_set, train_labels, test_labels, classes):
     for i in range(n_classes):
         models.append(SVC(kernel=kernel, max_iter=max_iteration, probability=True))
         # use decision_function_shape = 'ovr' in SVC for the version 'one vs rest'
-        models[i].fit(train_set, train_labels == classes[i])
+        models[i].fit(train_set, train_labels == i)
         print(i)
     print('\nFitting ended.')
 
@@ -32,8 +32,7 @@ def svm(train_set, test_set, train_labels, test_labels, classes):
 
     cmc = np.zeros((n_classes, n_classes))
     for predict, test_label in zip(predicted, test_labels):
-        num_class = [pos for pos, label in zip(range(n_classes), classes) if label == test_label][0]
-        cmc[num_class, predict] += 1.0
+        cmc[test_label, predict] += 1.0
 
     # 4. Make the confusion matrix plot and calculate the mean of accurancy, precision and recall,
     #    compared to all the classes 

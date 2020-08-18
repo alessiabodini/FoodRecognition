@@ -20,7 +20,6 @@ def knn(train_set, test_set, train_labels, test_labels):
     #    and find the K indexes of the train "points" closer
     k_neighbors = np.argsort(D, axis=0)[:K,:]
     #print(k_neighbors.shape)
-<<<<<<< HEAD
     #print(k_neighbors)
 
     # 4. Check the labels of the K closest neighbours to find the most frequent using mode
@@ -34,14 +33,5 @@ def knn(train_set, test_set, train_labels, test_labels):
         if prediction[i] == test_labels[i]:
             print(str(prediction[i]) + ' ---> n.' + str(i))
     '''
-=======
-
-    # 4. Check the labels of the K closest neighbours to find the most frequent using mode
-    neighbors_labels = train_labels[k_neighbors]
-    prediction = stats.mode(neighbors_labels, axis=0)[0]
-    #print(prediction.shape)
-
-    # 5. Calculate accurancy
->>>>>>> parent of d3718eb... Importing from .h5 files
     accurancy = np.sum(prediction == test_labels) / len(test_labels)
     print('Classifier\'s accurancy: ' + '{0:.2f}'.format(accurancy * 100) + '%')
