@@ -10,36 +10,11 @@ import matplotlib.pyplot as plt
 
 path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101'))
 path_h5 = path
+n_feat = 2048
 n_classes = 101
-learning_rate = 0.1
+learning_rate = 1e-6
 batch_size = 4
 epochs = 2
-
-class Net(nn.Module):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(3, 6, 3)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 3)
-        self.fc1 = nn.Linear(16 * 14 * 14, 2048)
-        self.fc2 = nn.Linear(2048, 1024)
-        self.fc3 = nn.Linear(1024, n_classes)
-
-    def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x.float())))
-        x = self.pool(F.relu(self.conv2(x.float())))
-        x = x.view(-1, self.num_flat_features(x))
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
-
-    def num_flat_features(self, x):
-        size = x.size()[1:]  # all dimensions except the batch dimension
-        num_features = 1
-        for s in size:
-            num_features *= s
-        return num_features
 
 
 def show(images):
@@ -53,18 +28,11 @@ def show(images):
     plt.close('all')
 
 
-def nnet(train_labels, test_labels, classes):
+def nnet_feat(train_set, test_set, train_labels, test_labels, classes):
 
-    # 1. Import train and test images
-    train_file = os.path.join(path_h5, 'food_c101_n10099_r64x64x3.h5')
-    test_file = os.path.join(path_h5, 'food_test_c101_n1000_r64x64x3.h5')
-    
-    train_set, _ = loadImages(train_file)
-    test_set, _ = loadImages(test_file)
-    train_set = np.transpose(train_set, (0, 3, 1, 2))
-    test_set = np.transpose(test_set, (0, 3, 1, 2))
-    train_set = train_set.astype('float32')
-    test_set = test_set.astype('float32')
+    # 1. Convert features set and labels in tensors
+    train_set =  torch.tensor(train_set, dtype=torch.float32)
+    test_set = torch.tensor(test_set, dtype=torch.float32)
     print('Dataset loaded.')
                     
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=False, num_workers=0)
@@ -73,22 +41,18 @@ def nnet(train_labels, test_labels, classes):
     train_labels = torch.tensor(train_labels, dtype=torch.long)
     test_labels = torch.tensor(test_labels, dtype=torch.long)
 
-    transform = torchvision.transforms.Normalize((128, 128, 128), (127, 127, 127))
-
     # 2. Show some images
     data_iter = iter(train_loader)
     images = data_iter.next()
-    for i in range(batch_size):
-        images[i] = transform(images[i])
     #show(images)
     #print(' '.join('%5s' % classes[int(train_labels[i])] for i in range(4)))
 
     # 3. Create a model
-    net = Net()
+    net = nn.Sequential(nn.Linear(n_feat, 512), nn.ReLU(), nn.Linear(512, n_classes))
 
     # 4. Define a loss function and the optimizer
     criterion = nn.CrossEntropyLoss() # or MSELoss 
-    optimizer = torch.optim.SGD(net.parameters(), lr=learning_rate, momentum=0.9)
+    optimizer = torch.optim.SGD(net.parameters(), lr=learning_rate)
     #optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
 
     # 5. Train the network (if necessary)
@@ -101,12 +65,7 @@ def nnet(train_labels, test_labels, classes):
             for i, inputs in enumerate(train_loader):
                 curr_size = inputs.size()[0]
                 optimizer.zero_grad()
-                for j in range(curr_size):
-                    inputs[j] = transform(inputs[j])
                 outputs = net(inputs)
-                #right_prob = torch.zeros([curr_size, n_classes], dtype=torch.float32)
-                #for j in range(curr_size):
-                #    right_prob[j, int(train_labels[i*batch_size+j])] = 1
                 loss = criterion(outputs, train_labels[i*4:(i+1)*4])
                 
                 optimizer.zero_grad()
@@ -128,8 +87,6 @@ def nnet(train_labels, test_labels, classes):
     # 6. Test the network
     dataiter = iter(test_loader)
     images = dataiter.next()
-    for i in range(batch_size):
-        images[i] = transform(images[i])
     #show(images)
     print('GroundTruth: ', ' '.join('%5s' % classes[int(test_labels[i])] for i in range(4)))
 
@@ -143,8 +100,6 @@ def nnet(train_labels, test_labels, classes):
     with torch.no_grad():
         for i, inputs in enumerate(test_loader):
             curr_size = inputs.size()[0]
-            for j in range(curr_size):
-                inputs[j] = transform(inputs[j])
             outputs = net(inputs)
             predicted = torch.argmax(outputs, dim=1)
             total += curr_size
@@ -161,8 +116,6 @@ def nnet(train_labels, test_labels, classes):
     with torch.no_grad():
         for i, inputs in enumerate(test_loader):
             curr_size = inputs.size()[0]
-            for j in range(curr_size):
-                inputs[j] = transform(inputs[j])
             outputs = net(inputs)
             predicted = torch.argmax(outputs, dim=1)
             c = (predicted == test_labels[i*4:(i+1)*4]).squeeze()
@@ -172,4 +125,4 @@ def nnet(train_labels, test_labels, classes):
                 class_total[int(label)] += 1
 
     for i in range(n_classes):
-        print('Accuracy of %5s : %2d %%' % (classes[i], 100 * class_correct[i]/class_total[i]))
+        print('Accuracy of %5s: %2d %%' % (classes[i], 100 * class_correct[i]/class_total[i]))

@@ -10,6 +10,7 @@ from tools import extractFeatures, extractLabels
 from knn import knn
 from svm import svm
 from nnet import nnet
+from nnet_feat import nnet_feat
 
 path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101'))
 path_h5 = path
@@ -101,6 +102,7 @@ print('Import completed.')
 
 #knn(train_features, test_features, train_labels, test_labels)
 #svm(train_features[:,:100], test_features[:,:100], train_labels, test_labels)
-nnet(train_labels, test_labels, classes_list)
+#nnet(train_labels, test_labels, classes_list)
+nnet_feat(train_features, test_features, train_labels, test_labels, classes_list)
 
-print('Processing time: ', time.time() - start_time)
+print('Processing time: %d min.' % int((time.time() - start_time) / 60))

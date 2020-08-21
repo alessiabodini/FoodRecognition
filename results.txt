@@ -35,3 +35,8 @@ Kernel = RBF:
 Kernel = Sigmoid:
     Iterations = 10: 0,90% (Precision = 0,01, Recall = 1)
     
+
+NN:
+
+64x64-64x64, 2 epochs, 4 batches: 3%
+64x64-64x64, 5 epochs, 4 batches: 5%
