@@ -11,35 +11,34 @@ import matplotlib.pyplot as plt
 path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101'))
 path_h5 = path
 n_classes = 101
-learning_rate = 0.1
+learning_rate = 0.01
 batch_size = 4
 epochs = 2
 
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(3, 6, 3)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 3)
-        self.fc1 = nn.Linear(16 * 14 * 14, 2048)
-        self.fc2 = nn.Linear(2048, 1024)
-        self.fc3 = nn.Linear(1024, n_classes)
+        self.conv1 = nn.Conv2d(3, 32, 3)
+        self.conv2 = nn.Conv2d(32, 64, 3)
+        self.dropout1 = nn.Dropout2d(0.25)
+        self.dropout2 = nn.Dropout2d(0.5)
+        self.fc1 = nn.Linear(64 * 30 * 30, 2048)
+        self.fc2 = nn.Linear(2048, n_classes)
 
     def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x.float())))
-        x = self.pool(F.relu(self.conv2(x.float())))
-        x = x.view(-1, self.num_flat_features(x))
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = self.conv1(x)
+        x = F.relu(x)
+        x = self.conv2(x)
+        x = F.relu(x)
+        x = F.max_pool2d(x, 2)
+        x = self.dropout1(x)
+        x = torch.flatten(x, 1) # flatten x with start_dim=1 (exclude the batch size)
+        x = self.fc1(x)
+        x = F.relu(x)
+        x = self.dropout2(x)
+        x = self.fc2(x)
+        x = F.log_softmax(x, dim=1)
         return x
-
-    def num_flat_features(self, x):
-        size = x.size()[1:]  # all dimensions except the batch dimension
-        num_features = 1
-        for s in size:
-            num_features *= s
-        return num_features
 
 
 def show(images):
@@ -92,6 +91,7 @@ def nnet(train_labels, test_labels, classes):
     #optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
 
     # 5. Train the network (if necessary)
+    net.train()
     if os.path.isfile('trained_network_epoch10.pth'):
         net.load_state_dict(torch.load('trained_network_epoch10.pth'))
     
@@ -107,7 +107,7 @@ def nnet(train_labels, test_labels, classes):
                 #right_prob = torch.zeros([curr_size, n_classes], dtype=torch.float32)
                 #for j in range(curr_size):
                 #    right_prob[j, int(train_labels[i*batch_size+j])] = 1
-                loss = criterion(outputs, train_labels[i*4:(i+1)*4])
+                loss = criterion(outputs, train_labels[i*batch_size:(i+1)*batch_size])
                 
                 optimizer.zero_grad()
                 loss.backward()
@@ -126,6 +126,7 @@ def nnet(train_labels, test_labels, classes):
         torch.save(net.state_dict(), 'trained_network.pth')
 
     # 6. Test the network
+    net.eval() # disable batch normalization
     dataiter = iter(test_loader)
     images = dataiter.next()
     for i in range(batch_size):
@@ -148,10 +149,10 @@ def nnet(train_labels, test_labels, classes):
             outputs = net(inputs)
             predicted = torch.argmax(outputs, dim=1)
             total += curr_size
-            correct += (predicted == test_labels[i*4:(i+1)*4]).sum().item()
+            correct += (predicted == test_labels[i*batch_size:(i+1)*batch_size]).sum().item()
             if i % 50 == 0:
                 print(predicted)
-                print(test_labels[i*4:(i+1)*4], end='\n')
+                print(test_labels[i*batch_size:(i+1)*batch_size], end='\n')
 
     print('Accuracy of the network on the 1000 test images: %d %%' % (100 * correct/total))
 
@@ -165,7 +166,7 @@ def nnet(train_labels, test_labels, classes):
                 inputs[j] = transform(inputs[j])
             outputs = net(inputs)
             predicted = torch.argmax(outputs, dim=1)
-            c = (predicted == test_labels[i*4:(i+1)*4]).squeeze()
+            c = (predicted == test_labels[i*batch_size:(i+1)*batch_size]).squeeze()
             for j in range(curr_size):
                 label = test_labels[i*batch_size+j]
                 class_correct[int(label)] += c[j].item()

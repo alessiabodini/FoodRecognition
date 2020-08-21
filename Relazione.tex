@@ -1,0 +1,71 @@
+\documentclass[11pt, a4paper, titlepage]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[english, italian]{babel}
+\usepackage{frontespizio}
+\usepackage{hyperref, cleveref}
+\hypersetup{hidelinks}
+\usepackage{graphicx, wrapfig, subcaption, setspace, booktabs}
+\graphicspath{{References//}}
+\usepackage[margin=1in]{geometry}
+\usepackage{adjustbox}
+\usepackage{tabls}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{float}
+\usepackage{array}
+
+\begin{document}
+
+\begin{frontespizio}
+\Margini{2.5cm}{3cm}{2.5cm}{3cm}
+\Universita{Verona}
+\Logo[4cm]{logo}
+\Dipartimento{Informatica}
+%\Facolta{Informatica}
+\Corso[Laurea]{Ingegneria e scienze informatiche}
+\Annoaccademico{2019--2020}
+\Titoletto{Progetto di Teorie e Tecniche del Riconoscimento}
+\Titolo{Food Recognition}
+\Sottotitolo{}
+%\NCandidato{Laureanda}
+\Candidato[VR451051]{Alessia Bodini} 
+\end{frontespizio}
+%\IfFileExists{\jobname-frn.pdf}{}{%
+%\immediate\write18{pdflatex \jobname-frn}}
+
+%\title{Food Recognition}
+%\author{Alessia Bodini}
+%\date{\today}
+
+%\maketitle
+\tableofcontents
+\newpage
+
+% Chapter 1: Introduzione
+\chapter{Introduzione}
+Il progetto realizzato (\cite{github-link}) si basa sull'applicazione di un software di riconoscimento di scritte a un dataset di bottiglie di vino, e in particolare sulle loro etichette, con lo scopo di affibbiare a ognuna di esse il nome del vino ed eventuali informazioni aggiuntive (quali produttore e luogo di provenienza). 
+
+Per l'analisi ci si è basati su un dataset contente immagini di vini suddivise in tre categorie:
+\begin{itemize}
+	\item \emph{bottles}\label{bottles}: immagini presenti in \emph{raw} appositamente ritagliate in modo da lasciare le bottiglie in primo piano.
+	\medskip
+	\begin{figure}[H]
+	\centering 
+	\includegraphics[width=0.15\textwidth]{CorteGiaraAmarone1}
+	\caption{Bottiglia di Amarone di Corte Giara ritagliata da \cref{fig:CorteGiaraAmarone11}.}
+	\end{figure}
+\end{itemize}
+
+A partire dal dataset, lo scopo del programma è quello di riconoscere all'interno di ogni immagine le parole presenti e, in seguito, di associare a ciascuna foto in \emph{raw} e \emph{bottles} il nome della bottiglia raffigurata, a seconda delle corrispondenze trovate con le immagini in \emph{gt}. All'interno di \emph{raw} e \emph{bottles} le immagini sono disposte in modo tale che ognuna di esse sia presente nella sottodirectory con il nome della bottiglia in \emph{gt} a cui fa riferimento, in modo da poter verificare facilmente l'accuratezza dei risultati raggiunti. 
+
+\medskip
+Un tale programma potrebbe essere adattato anche all'ambito mobile, così da consentire a possibili acquirenti di avere informazioni, possibilmente nella loro lingua madre, riguardanti il vino che sono interessati a comprare. 
+
+\pagebreak
+
+
+\bibliography{Bibliografia} 
+\bibliographystyle{ieeetr}
+
+\end{document}
