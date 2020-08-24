@@ -3,16 +3,25 @@ KNN:
 Metric = Euclidean:
     K = 1: 1,10%
     K = 3: 1,70%
+    K = 5: 1,40%
     K = 7: 1,20%
 
 Metric = Correlation:
     K = 1: 1,70%
     K = 3: 1,10%
+    K = 5: 0,80%
     K = 7: 0,80%
+
+Metric = Minkowski
+    K = 1: 1,10%
+    K = 3: 1,70%
+    K = 5: 1,40%
+    K = 7: 1,20%
 
 Metric = Cosine
     K = 1: 1,00%
     K = 3: 1,00%
+    K = 5: 1,10%
     K = 7: 0,70%
 
 

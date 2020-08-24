@@ -1,0 +1,60 @@
+\documentclass[11pt, a4paper, titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english, italian]{babel}
+\usepackage[noadvisor]{frontespizio}
+\usepackage{hyperref, cleveref}
+\hypersetup{hidelinks}
+\usepackage{graphicx, wrapfig, subcaption, setspace, booktabs}
+\graphicspath{{References//}}
+\usepackage[margin=1in]{geometry}
+\usepackage{adjustbox}
+\usepackage{tabls}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{float}
+
+\begin{document}
+
+\begin{frontespizio}
+\Margini{2.5cm}{3cm}{2.5cm}{3cm}
+\Universita{Verona}
+\Logo[4cm]{logo}
+\Dipartimento{Informatica}
+%\Facolta{Informatica}
+\Corso[Laurea]{Ingegneria e scienze informatiche}
+\Annoaccademico{2019--2020}
+\Titoletto{Progetto di Teorie e Tecniche del Riconoscimento}
+\Titolo{Food Recognition}
+\Sottotitolo{}
+%\NCandidato{Laureanda}
+\Candidato[VR451051]{Alessia Bodini} 
+\end{frontespizio}
+\IfFileExists{\jobname-frn.pdf}{}{
+\immediate\write18{pdflatex \jobname-frn}}
+%\lstinputlisting{Relazione-frn.log}
+
+%\title{Food Recognition}
+%\author{Alessia Bodini}
+%\date{\today}
+
+%\maketitle
+\tableofcontents
+\newpage
+
+% MOTIVAZIONI
+\section{Motivazioni e fondamento logico}
+Il seguente progetto si pone lo scopo di identificare una serie di cibi facendo uso di modelli visti durante il corso di studio (KNN, SVM e NN). Tale tipo di riconoscimento può risultare molto utile per quanto riguarda la classificazione di piatti in tutto il mondo, ad esempio per viaggiotori o stranieri che vogliono avere maggiori informazioni sul piatto o per coloro che sono interessati ad conoscere i valori nutrizionali del cibo proposto, il tutto con una sola foto. 
+
+% STATO DELL'ARTE
+\section{Stato dell'arte}
+L'applicazione maggiormente conosciuta per quanto riguardo il riconoscimento di cibi è probabilmente \emph{Calorie Mama}. Tale applicazione è disponibile per Apple e Android e permette non solo di riconoscere i cibi ma anche di mostrarne i valori nutrizionali e di far gestire all'utente le calorie assunte giornalmente e relativi programmi di fitness. La funzione di \textit{istant food recognition} viene alimentata dalla \textit{Food AI API} definita sulle ultime innovazioni in campo di deep learning e classificazione di immagini, costantemente aggiornata con cibi provenienti da tutto il mondo. Ogni piatto viene poi legato a specifici valori nutrizionali che l'utente utilizza per controllare le proprie diete direttamente dall'app.
+
+\medskip
+Il mio progetto non si pone di superare i risultati già raggiunti dall'applicazione, ma di eseguire un'analisi sulle migliori tecniche di classificazione conosciute e decretare la più efficiente tra queste. 
+
+% OBBIETTIVI
+\section{Obbiettivi}
+
+
+\end{document}

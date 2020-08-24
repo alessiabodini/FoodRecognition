@@ -11,35 +11,35 @@ import matplotlib.pyplot as plt
 path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101'))
 path_h5 = path
 n_classes = 101
-learning_rate = 0.01
+learning_rate = 1e-3
 batch_size = 4
-epochs = 2
+epochs = 5
 
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(3, 32, 3)
-        self.conv2 = nn.Conv2d(32, 64, 3)
-        self.dropout1 = nn.Dropout2d(0.25)
-        self.dropout2 = nn.Dropout2d(0.5)
-        self.fc1 = nn.Linear(64 * 30 * 30, 2048)
-        self.fc2 = nn.Linear(2048, n_classes)
+        self.conv1 = nn.Conv2d(3, 6, 3)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(6, 16, 3)
+        self.fc1 = nn.Linear(16 * 14 * 14, 2048)
+        self.fc2 = nn.Linear(2048, 1024)
+        self.fc3 = nn.Linear(1024, n_classes)
 
     def forward(self, x):
-        x = self.conv1(x)
-        x = F.relu(x)
-        x = self.conv2(x)
-        x = F.relu(x)
-        x = F.max_pool2d(x, 2)
-        x = self.dropout1(x)
-        x = torch.flatten(x, 1) # flatten x with start_dim=1 (exclude the batch size)
-        x = self.fc1(x)
-        x = F.relu(x)
-        x = self.dropout2(x)
-        x = self.fc2(x)
-        x = F.log_softmax(x, dim=1)
+        x = self.pool(F.relu(self.conv1(x.float())))
+        x = self.pool(F.relu(self.conv2(x.float())))
+        x = x.view(-1, self.num_flat_features(x))
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
         return x
 
+    def num_flat_features(self, x):
+        size = x.size()[1:]  # all dimensions except the batch dimension
+        num_features = 1
+        for s in size:
+            num_features *= s
+        return num_features
 
 def show(images):
     fig = plt.figure(figsize=(8, 8))
@@ -92,8 +92,8 @@ def nnet(train_labels, test_labels, classes):
 
     # 5. Train the network (if necessary)
     net.train()
-    if os.path.isfile('trained_network_epoch10.pth'):
-        net.load_state_dict(torch.load('trained_network_epoch10.pth'))
+    if os.path.isfile('trained_network_epoch.pth'):
+        net.load_state_dict(torch.load('trained_network_epoch.pth'))
     
     else:
         for epoch in range(epochs):  # loop over the dataset multiple times
