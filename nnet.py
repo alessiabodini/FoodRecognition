@@ -13,7 +13,7 @@ path_h5 = path
 n_classes = 101
 learning_rate = 1e-3
 batch_size = 4
-epochs = 5
+epochs = 10
 
 class Net(nn.Module):
     def __init__(self):

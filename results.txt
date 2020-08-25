@@ -38,7 +38,7 @@ Kernel = Poly:
 
 Kernel = RBF:
     Iterations = 10: 1,10% (Precision = 0,04, Recall = 0,15)
-    Iterations = 100 with 100 features: 0,80% (Precision = 0,01, Recall = 1)
+    Iterations = 100 with 100 features: 1,20% (Precision = 0,01, Recall = 0)
     Iterations = 1000 with 100 features: 1,10% (Precision = 0,04, Recall = 0,10)
 
 Kernel = Sigmoid:
@@ -49,3 +49,4 @@ NN:
 
 64x64-64x64, 2 epochs, 4 batches: 3%
 64x64-64x64, 5 epochs, 4 batches: 5%
+64x64-64x64, 10 epochs, 4 batches, 1e-3 lr: 5%

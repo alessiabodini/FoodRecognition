@@ -99,9 +99,9 @@ print('Import completed.')
 
 # Classification process ---------------------------------------------------------------------------------
 
-knn(train_features, test_features, train_labels, test_labels)
+#knn(train_features, test_features, train_labels, test_labels)
 #svm(train_features[:,:100], test_features[:,:100], train_labels, test_labels)
-#nnet(train_labels, test_labels, classes_list)
+nnet(train_labels, test_labels, classes_list)
 #nnet_feat(train_features, test_features, train_labels, test_labels, classes_list)
 
 print('Processing time: %d min.' % int((time.time() - start_time) / 60))

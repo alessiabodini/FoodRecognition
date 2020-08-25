@@ -3,3 +3,5 @@
 \contentsline {section}{\numberline {1}Motivazioni e fondamento logico}{2}{section.1}%
 \contentsline {section}{\numberline {2}Stato dell'arte}{2}{section.2}%
 \contentsline {section}{\numberline {3}Obbiettivi}{2}{section.3}%
+\contentsline {section}{\numberline {4}Metodologia}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Ricerca del dataset}{3}{subsection.4.1}%

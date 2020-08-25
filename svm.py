@@ -1,12 +1,13 @@
 import numpy as np
 from sklearn.svm import SVC
 from matplotlib import pyplot as plt
+from sklearn.metrics import confusion_matrix, classification_report
 
 def svm(train_set, test_set, train_labels, test_labels):
 
     # 1. Initialize parameters 
     kernel = 'rbf' # linear or poly or rbf
-    max_iteration = 1000 # 1000
+    max_iteration = 100 # 1000
     n_classes = 101
 
     # 2. Initialize a SVM classification model for every single class and train all of them
@@ -30,24 +31,20 @@ def svm(train_set, test_set, train_labels, test_labels):
     predicted_scores = np.asarray(predicted_scores)
     predicted = np.argmax(predicted_scores, axis=0)
 
+    '''
     cmc = np.zeros((n_classes, n_classes))
     for predict, test_label in zip(predicted, test_labels):
         cmc[test_label, predict] += 1.0
+    '''
 
-    # 4. Make the confusion matrix plot and calculate the mean of accurancy, precision and recall,
+    # 4. Make the confusion matrix and calculate the mean of accurancy, precision and recall,
     #    compared to all the classes 
-    '''
-    plt.imshow(cmc)
-    plt.colorbar()
-    plt.xlabel('Predicted')
-    plt.xticks([range(n_classes)])
-    plt.yticks([range(n_classes)])
-    plt.ylabel('Real')
-    plt.show()
-    '''
 
     print('Printing accurancy...')
+    cmc = confusion_matrix(predicted, test_labels)
     accurancy = np.sum(np.diagonal(cmc)) / np.sum(cmc)
+
+    '''
     precision = []
     recall = []
     for i in range(n_classes):
@@ -59,8 +56,10 @@ def svm(train_set, test_set, train_labels, test_labels):
     recall = np.asarray(recall)
     precision = np.mean(precision)
     recall = np.mean(recall)
+    '''
 
     #print(cmc)
+    print(classification_report(predicted, test_labels))
     print('Classifier\'s accurancy: ' + "{0:.2f}".format(accurancy*100) + '%')
-    print('Classifier\'s mean precision: ' + "{0:.2f}".format(precision))
-    print('Classifier\'s mean recall : ' + "{0:.2f}".format(recall))
+    #print('Classifier\'s mean precision: ' + "{0:.2f}".format(precision))
+    #print('Classifier\'s mean recall : ' + "{0:.2f}".format(recall))

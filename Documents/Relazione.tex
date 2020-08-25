@@ -13,6 +13,7 @@
 \usepackage{listings}
 \usepackage{enumerate}
 \usepackage{float}
+\usepackage{cite}
 
 \begin{document}
 
@@ -48,13 +49,28 @@ Il seguente progetto si pone lo scopo di identificare una serie di cibi facendo 
 
 % STATO DELL'ARTE
 \section{Stato dell'arte}
-L'applicazione maggiormente conosciuta per quanto riguardo il riconoscimento di cibi è probabilmente \emph{Calorie Mama}. Tale applicazione è disponibile per Apple e Android e permette non solo di riconoscere i cibi ma anche di mostrarne i valori nutrizionali e di far gestire all'utente le calorie assunte giornalmente e relativi programmi di fitness. La funzione di \textit{istant food recognition} viene alimentata dalla \textit{Food AI API} definita sulle ultime innovazioni in campo di deep learning e classificazione di immagini, costantemente aggiornata con cibi provenienti da tutto il mondo. Ogni piatto viene poi legato a specifici valori nutrizionali che l'utente utilizza per controllare le proprie diete direttamente dall'app.
-
-\medskip
-Il mio progetto non si pone di superare i risultati già raggiunti dall'applicazione, ma di eseguire un'analisi sulle migliori tecniche di classificazione conosciute e decretare la più efficiente tra queste. 
+L'applicazione maggiormente conosciuta per quanto riguardo il riconoscimento di cibi è al momento \emph{Calorie Mama} \cite{calorie-mama}. Tale applicazione è disponibile per Apple e Android e permette non solo di riconoscere i cibi ma anche di mostrarne i valori nutrizionali e di far gestire all'utente le calorie assunte giornalmente e relativi programmi di fitness. La funzione di \textit{istant food recognition} viene alimentata da \textit{Food AI API} \cite{foodai} basata sulle ultime innovazioni in campo di deep learning e in grado di riconoscere ad oggi 756 cibi diversi (gran parte cibi tipici di Singapore). Ogni piatto viene poi legato a specifici valori nutrizionali che l'utente utilizza per controllare le proprie diete direttamente dall'app.
 
 % OBBIETTIVI
 \section{Obbiettivi}
+Il mio progetto non si pone di superare i risultati già raggiunti dall'applicazione nè da \textit{Food AI API}, ma di eseguire un'analisi sulle migliori tecniche di classificazione conosciute e decretare la più efficiente tra queste. In particolare il mio lavoro si è concentrato sull'analisi di tre principali metodi per la classificazione: KNN (\textit{K-Nearest Neighbors}), SVM (\textit{Support Vector Machine}) e reti neurali. 
 
+\pagebreak
+
+% METODOLOGIA 
+\section{Metodologia}
+Il lavoro si è suddiviso nella ricerca di un dataset e relativa estrazione dei dati e delle features poi utilizzate e nell'implementazione di alcuni dei modelli di riconoscimento visti durante il corso. Si spiegano di seguito nei dettagli tali processi. 
+
+\subsection{Ricerca del dataset}
+Il dataset scelto denominato \emph{Food-101} \cite{food-101} è disponibile sul sito \url{kaggle.com} e presenta un totale di 10100 fotografie di piatti e cibi diversi. In particolare, il dataset è suddiviso in 101 categorie di cibi, ognuno già etichettato, e presenta alcuni file HDF5 dai quali è possibile estrarre direttamente training e testing set con una risoluzione minore rispetto all'originale, in modo da velocizzare le operazioni. I dati utilizzati nelle vari modelli sono stati presi tutti dagli stessi due file, così da mantenere una certa coerenza con i risultati raggiunti:
+\begin{itemize}
+    \item \textit{food\_c101\_n10099\_r64x64x3.h5} per il training set, con 10099 immagini (con almeno una per categoria) con risoluzione 64x64x3 (RGB, uint8);
+    \item \textit{food\_test\_c101\_n1000\_r64x64x3.h5} per il testing set, con 1000 immagini della stessa risoluzione indicata per il training set. 
+\end{itemize}
+ 
+
+\pagebreak
+\bibliography{Bibliografia}{}
+\bibliographystyle{plain}
 
 \end{document}
