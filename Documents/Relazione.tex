@@ -2,8 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english, italian]{babel}
 \usepackage[noadvisor]{frontespizio}
-\usepackage{hyperref, cleveref}
-\hypersetup{hidelinks}
+\usepackage{mathtools}
+\usepackage[colorlinks=true, linkcolor=black]{hyperref}
 \usepackage{graphicx, wrapfig, subcaption, setspace, booktabs}
 \graphicspath{{References//}}
 \usepackage[margin=1in]{geometry}
@@ -95,7 +95,21 @@ Per l'implementazione della \emph{Support Vector Machine} si sono presi in consi
 Per tutti i casi si è testato il modello su 10 iterazioni totali. 
 
 \paragraph{NN}
+La rete nurale è stato creata ad hoc per il dataset e comprende 6 diversi strati:
+\begin{enumerate}
+    \item convoluzione 2D con kernel di dimensione 3x3, passando da 3 canali in input (RGB) a 6 finali;
+    \item \emph{max-pooling} di dimensione 2x2;
+    \item seconda convoluzione 2D con uguale kernel (3x3), passando da 6 canali in input a 16 in output;
+    \item trasformazione lineare che prende come features in input l'insieme dei valori che riguardano l'immagine come finora è stata modificata, cioè con $16 \times 14 \times 14$ ($numero di canali \times altezza \times larghezza$), che confluiscono in 2048 features in output;
+    \item secondo trasformazione lineare che riduce le features in 1024;
+    \item terza e ultima trasformazione lineare che da 1024 features passa a sole 101 che rappresentano il numero di classi finali di appartenza. La feature che presenta il valore più alto sarà identificata come la classe di appartenza.
+\end{enumerate}
+Tale configurazione è stata ispirata da quella presente in nel tutorial di PyTorch: \href{https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html}{Training a classifier}. Il tasso di apprendimento è stato impostato a 0.001 e il numero di batch a 4. La fase di addestramento continua per un totale di 5 epoche. 
 
+\section{Esperimenti e risultati raggiunti}
+
+
+\section{Conclusioni}
 
 \pagebreak
 \bibliography{Bibliografia}{}

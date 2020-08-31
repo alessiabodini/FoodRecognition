@@ -10,3 +10,5 @@
 \contentsline {paragraph}{KNN}{3}{section*.2}%
 \contentsline {paragraph}{SVM}{3}{section*.3}%
 \contentsline {paragraph}{NN}{4}{section*.4}%
+\contentsline {section}{\numberline {5}Esperimenti e risultati raggiunti}{4}{section.5}%
+\contentsline {section}{\numberline {6}Conclusioni}{4}{section.6}%
