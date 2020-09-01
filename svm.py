@@ -2,12 +2,22 @@ import numpy as np
 from sklearn.svm import SVC
 from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.preprocessing import StandardScaler
 
 def svm(train_set, test_set, train_labels, test_labels):
 
+    print(train_set.shape)
+
+    # 0. Apply a simple scaling on the data 
+    ss = StandardScaler()
+    train_set = ss.fit_transform(train_set)
+    test_set = ss.transform(test_set)
+
     # 1. Initialize parameters 
     kernel = 'rbf' # linear or poly or rbf
-    max_iteration = 100 # 1000
+    C = 1
+    gamma = 'auto'
+    max_iteration = 10 # 1000
     n_classes = 101
 
     # 2. Initialize a SVM classification model for every single class and train all of them
@@ -16,7 +26,7 @@ def svm(train_set, test_set, train_labels, test_labels):
     print(train_set.shape)
     print(train_labels.shape)
     for i in range(n_classes):
-        models.append(SVC(kernel=kernel, max_iter=max_iteration, probability=True))
+        models.append(SVC(C=C, gamma=gamma, kernel=kernel, max_iter=max_iteration, probability=True))
         # use decision_function_shape = 'ovr' in SVC for the version 'one vs rest'
         models[i].fit(train_set, train_labels == i)
         print(i)

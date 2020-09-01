@@ -7,6 +7,7 @@ from sklearn.preprocessing import StandardScaler
 
 def knn(train_set, test_set, train_labels, test_labels):
     
+    # 0. Apply a simple scaling on the data 
     ss = StandardScaler()
     train_set = ss.fit_transform(train_set)
     test_set = ss.transform(test_set)
