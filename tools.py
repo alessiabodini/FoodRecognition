@@ -1,62 +1,66 @@
 from resnet import FeaturesExtractor
 from pathlib import Path
 import numpy as np
-import h5py
 import csv
 import cv2
 import os
 
+path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101')) # your path of the dataset
+path_img = path/'images'
+n_classes = 101
+max_img = 999
 
-def loadImages(filename):
+def loadImages(t_set, n_images_per_class, phase):
+    
+    images, labels = [], []
+    n_class = 0
+    idx = 0
+    set_range = range(n_images_per_class) if phase == 'train' else range(max_img, max_img-n_images_per_class, -1)
+    
+    for c in t_set:
+        #print(c)
+        for i in set_range:
+            idx += 1
+            name = t_set[c][i]
+            labels.append(n_class)
+            img = cv2.imread(os.path.join(path_img, name))
+            img = cv2.resize(img,(64,64))
+            images.append(img)
+        n_class += 1
 
-    # Import information from file .h5
-    f = h5py.File(filename, 'r')
-    category = f['category']
-    category_names = f['category_names']
-    images = f['images']
-
-    return images, category
+    return np.array(images), np.array(labels)
 
 
-def extractFeatures(filename):
+def extractFeatures(t_set, n_images_per_class, phase):
 
     # Extractor initialization
     extractor = FeaturesExtractor()
 
-    # Load imagesù
-    images, category = loadImages(filename)
+    # Load images
+    print('Loading images...')
+    images, labels = loadImages(t_set, n_images_per_class, phase)
 
-    # Infer from all images (or until one is reached)
+    # Infer from all images 
+    print('Extracting features...')
     n_features = 2048
     n_images = images.shape[0]
-    labels = []
     features = np.zeros((n_images, n_features))
     for i in range(n_images):
         if i % 100 == 0:
             print(i)
         img = images[i]
-
-        labels.append([j for j in range(category.shape[1]) if category[i][j] == True][0])
-
-        #feature_matrix = np.zeros((64,64)) 
-        #for i in range(img.shape[0]):
-            #for j in range(img.shape[1]):
-                #feature_matrix[i][j] = ((int(img[i,j,0]) + int(img[i,j,1]) + int(img[i,j,2]))/3)
-        #features = np.reshape(feature_matrix, (64*64)) 
-        features[i] = extractor.getFeatures(img)
+        features[i] = extractor.getFeatures(img)        
     
     return np.array(labels), features
 
 
-def extractLabels(filename):
-    # Load images
-    _, category = loadImages(filename)
-
+def extractLabels(t_set, n_images_per_class):
     labels = []
-    for i in range(category.shape[0]):
-        if i % 100 == 0:
-            print(i)
-        labels.append([j for j in range(category.shape[1]) if category[i][j] == True][0])
+    n_class = 0
+    
+    for c in range(n_classes):
+        for i in range(n_images_per_class):
+            labels.append(n_class)
+        n_class += 1
 
     return np.array(labels)
-

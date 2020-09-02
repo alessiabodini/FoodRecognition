@@ -6,12 +6,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 from pathlib import Path
-from tools import extractFeatures, extractLabels
+from tools import extractFeatures, extractLabels, loadImages
 from knn import knn
 from svm import svm
 from nnet import nnet
 
-path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101'))
+path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101')) # your path of the dataset
 path_h5 = path
 path_img = path/'images'
 path_meta = path/'meta/meta'
@@ -48,60 +48,85 @@ for i in range(len(test_df)):
 #img = Image.open(os.path.join(path_img, test_set['apple_pie'][1]))
 #plt.imshow(np.array(img))
 
-# -------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------
 
-# Detect the features for train and test set ------------------------------------------------------------------
+# For KNN and SVM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+'''
+# Detect the features for train and test set ----------------------------------------------------------
 
 n_features = 2048
-train_file = os.path.join(path_h5, 'food_c101_n10099_r64x64x3.h5')
-test_file = os.path.join(path_h5, 'food_test_c101_n1000_r64x64x3.h5')
+#train_file = os.path.join(path_h5, 'food_c101_n10099_r64x64x3.h5')
+#test_file = os.path.join(path_h5, 'food_test_c101_n1000_r64x64x3.h5')
 train_file_feat = 'train_features.csv'
 test_file_feat =  'test_features.csv'
 train_file_labels = 'train_labels.csv'
 test_file_labels = 'test_labels.csv'
-train_labels, test_labels = [], []
 
+n_images_per_class = 100
 if os.path.isfile(train_file_feat):
     train_features = np.genfromtxt(train_file_feat, delimiter=',')
 else:
-    train_labels, train_features = extractFeatures(train_file)
+    train_labels, train_features = extractFeatures(train_set, n_images_per_class, 'train')
     with open(train_file_feat, 'w', newline='') as filename:
         writer = csv.writer(filename)
         writer.writerows(train_features)    
 if os.path.isfile(train_file_labels):
     train_labels = np.genfromtxt(train_file_labels, delimiter=',')
 else:
-    if train_labels == []:
-        train_labels = extractLabels(train_file)
+    if 'train_labels' not in globals(): # NEED TO CHECK
+        train_labels = extractLabels(train_set, n_images_per_class)
     with open(train_file_labels, 'w', newline='') as filename:
         writer = csv.writer(filename, delimiter=',')
         writer.writerow(train_labels)
 
+n_images_per_class = 10
 if os.path.isfile(test_file_feat):
     test_features = np.genfromtxt(test_file_feat, delimiter=',')
 else:
-    test_labels, test_features = extractFeatures(test_file)
+    test_labels, test_features = extractFeatures(test_set, n_images_per_class, 'test')
     with open(test_file_feat, 'w', newline='') as filename:
         writer = csv.writer(filename)
         writer.writerows(test_features)    
 if os.path.isfile(test_file_labels):
     test_labels = np.genfromtxt(test_file_labels, delimiter=',')
 else:
-    if test_labels == []:
-        test_labels = extractLabels(test_file)
+    if 'test_labels' not in globals(): # NEED TO CHECK
+        test_labels = extractLabels(test_set, n_images_per_class)
     with open(test_file_labels, 'w', newline='') as filename:
         writer = csv.writer(filename, delimiter=',')
         writer.writerow(test_labels)
 
 print('Import completed.')
 
-# -------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------
 
-# Classification process ---------------------------------------------------------------------------------
+# Classification process ------------------------------------------------------------------------------
 
 #knn(train_features, test_features, train_labels, test_labels)
-svm(train_features, test_features, train_labels, test_labels)
-#nnet(train_labels, test_labels, classes_list)
+#svm(train_features, test_features, train_labels, test_labels)
+
+# -----------------------------------------------------------------------------------------------------
+'''
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+# For NN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+# Import images for train and test set ----------------------------------------------------------------
+
+n_images_per_class = 100
+train_images, train_labels = loadImages(train_set, n_images_per_class, 'train')
+n_images_per_class = 10
+test_images, test_labels = loadImages(test_set, n_images_per_class, 'test')
+
+# -----------------------------------------------------------------------------------------------------
+
+# Classification process ------------------------------------------------------------------------------
+
+nnet(train_images, test_images, train_labels, test_labels, classes_list)
 #nnet_feat(train_features, test_features, train_labels, test_labels, classes_list)
+
+# -----------------------------------------------------------------------------------------------------
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 print('Processing time: %d min.' % int((time.time() - start_time) / 60))

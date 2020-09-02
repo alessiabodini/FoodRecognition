@@ -15,8 +15,8 @@ def svm(train_set, test_set, train_labels, test_labels):
 
     # 1. Initialize parameters 
     kernel = 'rbf' # linear or poly or rbf
-    C = 1
-    gamma = 'auto'
+    C = 0.1
+    gamma = 'auto' # scale or auto
     max_iteration = 10 # 1000
     n_classes = 101
 
