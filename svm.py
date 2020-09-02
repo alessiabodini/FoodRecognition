@@ -7,7 +7,13 @@ def svm(train_set, test_set, train_labels, test_labels):
 
     # 1. Initialize parameters 
     kernel = 'rbf' # linear or poly or rbf
+<<<<<<< HEAD
     max_iteration = 100 # 1000
+=======
+    C = 0.1
+    gamma = 'auto' # scale or auto
+    max_iteration = 10 # 1000
+>>>>>>> 6dfe91860... Extract balanced set of images
     n_classes = 101
 
     # 2. Initialize a SVM classification model for every single class and train all of them

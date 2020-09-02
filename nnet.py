@@ -5,7 +5,6 @@ import torchvision
 import os
 import numpy as np
 from pathlib import Path
-from tools import loadImages
 import matplotlib.pyplot as plt
 
 path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101'))
@@ -13,7 +12,7 @@ path_h5 = path
 n_classes = 101
 learning_rate = 1e-3
 batch_size = 4
-epochs = 10
+epochs = 2
 
 class Net(nn.Module):
     def __init__(self):
@@ -52,29 +51,35 @@ def show(images):
     plt.close('all')
 
 
-def nnet(train_labels, test_labels, classes):
+def nnet(train_set, test_set, train_labels, test_labels, classes):
 
-    # 1. Import train and test images
-    train_file = os.path.join(path_h5, 'food_c101_n10099_r64x64x3.h5')
-    test_file = os.path.join(path_h5, 'food_test_c101_n1000_r64x64x3.h5')
-    
-    train_set, _ = loadImages(train_file)
-    test_set, _ = loadImages(test_file)
+    # 1. Shuffle train and test set
     train_set = np.transpose(train_set, (0, 3, 1, 2))
     test_set = np.transpose(test_set, (0, 3, 1, 2))
     train_set = train_set.astype('float32')
     test_set = test_set.astype('float32')
     print('Dataset loaded.')
-                    
-    train_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=False, num_workers=0)
-    test_loader = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=0)
+
+    indices = np.arange(train_set.shape[0])
+    np.random.shuffle(indices)
+    train_set = train_set[indices]
+    train_labels = train_labels[indices]
+
+    indices = np.arange(test_set.shape[0])
+    np.random.shuffle(indices)
+    test_set = test_set[indices]
+    test_labels = test_labels[indices]
+
+    # 2. Transform train and test set into tensors
+    train_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=False)
+    test_loader = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=False)
 
     train_labels = torch.tensor(train_labels, dtype=torch.long)
     test_labels = torch.tensor(test_labels, dtype=torch.long)
 
     transform = torchvision.transforms.Normalize((128, 128, 128), (127, 127, 127))
 
-    # 2. Show some images
+    # 3. Show some images
     data_iter = iter(train_loader)
     images = data_iter.next()
     for i in range(batch_size):
@@ -82,15 +87,15 @@ def nnet(train_labels, test_labels, classes):
     #show(images)
     #print(' '.join('%5s' % classes[int(train_labels[i])] for i in range(4)))
 
-    # 3. Create a model
+    # 4. Create a model
     net = Net()
 
-    # 4. Define a loss function and the optimizer
+    # 5. Define a loss function and the optimizer
     criterion = nn.CrossEntropyLoss() # or MSELoss 
     optimizer = torch.optim.SGD(net.parameters(), lr=learning_rate, momentum=0.9)
     #optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
 
-    # 5. Train the network (if necessary)
+    # 6. Train the network (if necessary)
     net.train()
     if os.path.isfile('trained_network_epoch.pth'):
         net.load_state_dict(torch.load('trained_network_epoch.pth'))
@@ -117,7 +122,7 @@ def nnet(train_labels, test_labels, classes):
                 running_loss += loss.item()
                 if i % 500 == 0:
                     print('[%d, %5d] loss: %.3f' %
-                        (epoch + 1, i + 1, running_loss / 2000))
+                        (epoch + 1, i + 1, running_loss / 500))
                     running_loss = 0.0
 
         print('Training ended.')
@@ -125,7 +130,7 @@ def nnet(train_labels, test_labels, classes):
         # Save the obtained model
         torch.save(net.state_dict(), 'trained_network.pth')
 
-    # 6. Test the network
+    # 7. Test the network
     net.eval() # disable batch normalization
     dataiter = iter(test_loader)
     images = dataiter.next()
@@ -154,9 +159,9 @@ def nnet(train_labels, test_labels, classes):
                 print(predicted)
                 print(test_labels[i*batch_size:(i+1)*batch_size], end='\n')
 
-    print('Accuracy of the network on the 1000 test images: %d %%' % (100 * correct/total))
+    print('Accuracy of the network on the test images: %d %%' % (100 * correct/total))
 
-    # 7. Test performance for every class
+    # 8. Test performance for every class
     class_correct = list(0. for i in range(n_classes))
     class_total = list(0. for i in range(n_classes))
     with torch.no_grad():
