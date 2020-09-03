@@ -27,3 +27,4 @@ trained_network_epoch5_lr1e-3.pth
 texput.log
 trained_network.pth
 Stuff/tools_with_h5.py
+Stuff/example.py
