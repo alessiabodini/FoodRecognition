@@ -7,8 +7,7 @@ import os
 
 path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101')) # your path of the dataset
 path_img = path/'images'
-n_classes = 101
-max_img = 999
+n_classes = 10
 
 def loadImages(t_set, n_images_per_class, phase):
     
@@ -23,9 +22,11 @@ def loadImages(t_set, n_images_per_class, phase):
             name = t_set[c][i]
             labels.append(n_class)
             img = cv2.imread(os.path.join(path_img, name))
-            img = cv2.resize(img,(64,64))
+            img = cv2.resize(img,(128,128))
             images.append(img)
         n_class += 1
+        if c == 'breakfast_burrito':
+            break
 
     return np.array(images), np.array(labels)
 

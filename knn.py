@@ -13,8 +13,8 @@ def knn(train_set, test_set, train_labels, test_labels):
     test_set = ss.transform(test_set)
 
     # 1. Set the parameters: K is the number of clostes neighbours to consider and fun is the metric chosen
-    K = 3 # 1 or 3 or 5 or 7
-    fun = 'minkowski' # euclidean or correlation or minkowski
+    K = 1 # 1 or 3 or 5 or 7
+    fun = 'cosine' # euclidean or correlation or minkowski or cosine
 
     #print(train_set.shape)
     #print(test_set.shape)

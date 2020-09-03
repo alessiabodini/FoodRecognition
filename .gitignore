@@ -28,3 +28,12 @@ texput.log
 trained_network.pth
 Stuff/tools_with_h5.py
 Stuff/example.py
+Stuff/git-commit-sizes.pl
+test_features_10x10.csv
+test_features_250x10.csv
+test_labels_10x10.csv
+test_labels_250x10.csv
+train_features_100x10.csv
+train_features_750x10.csv
+train_labels_100x10.csv
+train_labels_750x10.csv

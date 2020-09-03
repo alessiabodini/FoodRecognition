@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 
 path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101'))
 path_h5 = path
-n_classes = 101
+n_classes = 10
 learning_rate = 1e-3
 batch_size = 4
-epochs = 2
+epochs = 10
 
 class Net(nn.Module):
     def __init__(self):
@@ -20,7 +20,7 @@ class Net(nn.Module):
         self.conv1 = nn.Conv2d(3, 6, 3)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
-        self.fc1 = nn.Linear(16 * 14 * 14, 2048)
+        self.fc1 = nn.Linear(16 * 30 * 30, 2048) # 64x64: 14*14, 128x128: 30*30
         self.fc2 = nn.Linear(2048, 1024)
         self.fc3 = nn.Linear(1024, n_classes)
 
@@ -120,9 +120,9 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
 
                 # Print statistics
                 running_loss += loss.item()
-                if i % 500 == 0:
+                if i % 100 == 0:
                     print('[%d, %5d] loss: %.3f' %
-                        (epoch + 1, i + 1, running_loss / 500))
+                        (epoch + 1, i + 1, running_loss / 100))
                     running_loss = 0.0
 
         print('Training ended.')
@@ -155,7 +155,7 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
             predicted = torch.argmax(outputs, dim=1)
             total += curr_size
             correct += (predicted == test_labels[i*batch_size:(i+1)*batch_size]).sum().item()
-            if i % 50 == 0:
+            if i % 10 == 0:
                 print(predicted)
                 print(test_labels[i*batch_size:(i+1)*batch_size], end='\n')
 

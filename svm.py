@@ -6,8 +6,6 @@ from sklearn.preprocessing import StandardScaler
 
 def svm(train_set, test_set, train_labels, test_labels):
 
-    print(train_set.shape)
-
     # 0. Apply a simple scaling on the data 
     ss = StandardScaler()
     train_set = ss.fit_transform(train_set)
@@ -15,16 +13,15 @@ def svm(train_set, test_set, train_labels, test_labels):
 
     # 1. Initialize parameters 
     kernel = 'rbf' # linear or poly or rbf
-    C = 0.1
-    gamma = 'auto' # scale or auto
-    max_iteration = 10 # 1000
-    n_classes = 101
+    C = 1
+    gamma = 'scale' # scale or auto
+    degree = 3
+    max_iteration = 100
+    n_classes = 10
 
     # 2. Initialize a SVM classification model for every single class and train all of them
     #    (in this case only the first 11 class (with initial 'a' and 'b') are considered for semplicity)
     models = []
-    print(train_set.shape)
-    print(train_labels.shape)
     for i in range(n_classes):
         models.append(SVC(C=C, gamma=gamma, kernel=kernel, max_iter=max_iteration, probability=True))
         # use decision_function_shape = 'ovr' in SVC for the version 'one vs rest'
@@ -41,20 +38,20 @@ def svm(train_set, test_set, train_labels, test_labels):
     predicted_scores = np.asarray(predicted_scores)
     predicted = np.argmax(predicted_scores, axis=0)
 
-    '''
+    
     cmc = np.zeros((n_classes, n_classes))
     for predict, test_label in zip(predicted, test_labels):
-        cmc[test_label, predict] += 1.0
-    '''
+        cmc[int(test_label), predict] += 1.0
+    
 
     # 4. Make the confusion matrix and calculate the mean of accurancy, precision and recall,
     #    compared to all the classes 
 
     print('Printing accurancy...')
-    cmc = confusion_matrix(predicted, test_labels)
+    #cmc = confusion_matrix(predicted, test_labels)
     accurancy = np.sum(np.diagonal(cmc)) / np.sum(cmc)
 
-    '''
+    
     precision = []
     recall = []
     for i in range(n_classes):
@@ -66,10 +63,10 @@ def svm(train_set, test_set, train_labels, test_labels):
     recall = np.asarray(recall)
     precision = np.mean(precision)
     recall = np.mean(recall)
-    '''
+    
 
     #print(cmc)
-    print(classification_report(predicted, test_labels))
+    #print(classification_report(predicted, test_labels))
     print('Classifier\'s accurancy: ' + "{0:.2f}".format(accurancy*100) + '%')
-    #print('Classifier\'s mean precision: ' + "{0:.2f}".format(precision))
-    #print('Classifier\'s mean recall : ' + "{0:.2f}".format(recall))
+    print('Classifier\'s mean precision: ' + "{0:.2f}".format(precision))
+    print('Classifier\'s mean recall : ' + "{0:.2f}".format(recall))

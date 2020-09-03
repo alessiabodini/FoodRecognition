@@ -51,16 +51,16 @@ for i in range(len(test_df)):
 # -----------------------------------------------------------------------------------------------------
 
 # For KNN and SVM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
+'''
 # Detect the features for train and test set ----------------------------------------------------------
 
 n_features = 2048
 #train_file = os.path.join(path_h5, 'food_c101_n10099_r64x64x3.h5')
 #test_file = os.path.join(path_h5, 'food_test_c101_n1000_r64x64x3.h5')
-train_file_feat = 'train_features.csv'
-test_file_feat =  'test_features.csv'
-train_file_labels = 'train_labels.csv'
-test_file_labels = 'test_labels.csv'
+train_file_feat = 'train_features_100x10.csv'
+test_file_feat =  'test_features_10x10.csv'
+train_file_labels = 'train_labels_100x10.csv'
+test_file_labels = 'test_labels_10x10.csv'
 
 n_images_per_class = 100
 if os.path.isfile(train_file_feat):
@@ -106,7 +106,7 @@ print('Import completed.')
 #svm(train_features, test_features, train_labels, test_labels)
 
 # -----------------------------------------------------------------------------------------------------
-
+'''
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 # For NN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -129,4 +129,6 @@ nnet(train_images, test_images, train_labels, test_labels, classes_list)
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-print('Processing time: %d min.' % int((time.time() - start_time) / 60))
+total_time = time.time() - start_time
+print('Processing time: %d min.' % int(total_time/60) if total_time > 60 
+        else 'Processing time: %d sec.' % int(total_time))
