@@ -102,11 +102,6 @@ print('Import completed.')
 
 # Classification process ------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-knn(train_features, test_features, train_labels, test_labels)
-#svm(train_features[:,:100], test_features[:,:100], train_labels, test_labels)
-#nnet(train_labels, test_labels, classes_list)
-=======
 #knn(train_features, test_features, train_labels, test_labels)
 #svm(train_features, test_features, train_labels, test_labels)
 
@@ -128,7 +123,6 @@ test_images, test_labels = loadImages(test_set, n_images_per_class, 'test')
 # Classification process ------------------------------------------------------------------------------
 
 nnet(train_images, test_images, train_labels, test_labels, classes_list)
->>>>>>> 6dfe91860... Extract balanced set of images
 #nnet_feat(train_features, test_features, train_labels, test_labels, classes_list)
 
 # -----------------------------------------------------------------------------------------------------
