@@ -15,11 +15,10 @@ def loadImages(t_set, n_images_per_class, phase):
     images, labels = [], []
     n_class = 0
     idx = 0
-    set_range = range(n_images_per_class) if phase == 'train' else range(max_img, max_img-n_images_per_class, -1)
     
     for c in t_set:
-        #print(c)
-        for i in set_range:
+        print(c)
+        for i in range(n_images_per_class):
             idx += 1
             name = t_set[c][i]
             labels.append(n_class)
