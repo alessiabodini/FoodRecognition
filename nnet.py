@@ -6,13 +6,14 @@ import os
 import numpy as np
 from pathlib import Path
 import matplotlib.pyplot as plt
+from torchvision import transforms as tr
 
 path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101'))
 path_h5 = path
 n_classes = 10
 learning_rate = 1e-3
 batch_size = 4
-epochs = 10
+epochs = 2
 
 class Net(nn.Module):
     def __init__(self):
@@ -20,7 +21,7 @@ class Net(nn.Module):
         self.conv1 = nn.Conv2d(3, 6, 3)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
-        self.fc1 = nn.Linear(16 * 30 * 30, 2048) # 64x64: 14*14, 128x128: 30*30
+        self.fc1 = nn.Linear(16 * 14 * 14, 2048) # 64x64: 14*14, 128x128: 30*30
         self.fc2 = nn.Linear(2048, 1024)
         self.fc3 = nn.Linear(1024, n_classes)
 
@@ -77,13 +78,14 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
     train_labels = torch.tensor(train_labels, dtype=torch.long)
     test_labels = torch.tensor(test_labels, dtype=torch.long)
 
-    transform = torchvision.transforms.Normalize((128, 128, 128), (127, 127, 127))
+    # Use torch.true_divide(image, 255) insted
+    transform = tr.Normalize((128, 128, 128), (127, 127, 127)) 
 
     # 3. Show some images
     data_iter = iter(train_loader)
     images = data_iter.next()
     for i in range(batch_size):
-        images[i] = transform(images[i])
+        images[i] = torch.true_divide(images[i], 255)
     #show(images)
     #print(' '.join('%5s' % classes[int(train_labels[i])] for i in range(4)))
 
@@ -105,19 +107,19 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
             running_loss = 0.0
             for i, inputs in enumerate(train_loader):
                 curr_size = inputs.size()[0]
-                optimizer.zero_grad()
+
                 for j in range(curr_size):
-                    inputs[j] = transform(inputs[j])
+                    inputs[j] = torch.true_divide(inputs[j], 255)
                 outputs = net(inputs)
                 #right_prob = torch.zeros([curr_size, n_classes], dtype=torch.float32)
                 #for j in range(curr_size):
                 #    right_prob[j, int(train_labels[i*batch_size+j])] = 1
                 loss = criterion(outputs, train_labels[i*batch_size:(i+1)*batch_size])
                 
-                optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
-
+                optimizer.zero_grad()
+                
                 # Print statistics
                 running_loss += loss.item()
                 if i % 100 == 0:
@@ -135,7 +137,7 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
     dataiter = iter(test_loader)
     images = dataiter.next()
     for i in range(batch_size):
-        images[i] = transform(images[i])
+        images[i] = torch.true_divide(images[i], 255)
     #show(images)
     print('GroundTruth: ', ' '.join('%5s' % classes[int(test_labels[i])] for i in range(4)))
 
@@ -150,7 +152,7 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
         for i, inputs in enumerate(test_loader):
             curr_size = inputs.size()[0]
             for j in range(curr_size):
-                inputs[j] = transform(inputs[j])
+                inputs[j] = torch.true_divide(inputs[j], 255)
             outputs = net(inputs)
             predicted = torch.argmax(outputs, dim=1)
             total += curr_size
@@ -168,7 +170,7 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
         for i, inputs in enumerate(test_loader):
             curr_size = inputs.size()[0]
             for j in range(curr_size):
-                inputs[j] = transform(inputs[j])
+                inputs[j] = torch.true_divide(inputs[j], 255)
             outputs = net(inputs)
             predicted = torch.argmax(outputs, dim=1)
             c = (predicted == test_labels[i*batch_size:(i+1)*batch_size]).squeeze()

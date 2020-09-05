@@ -51,12 +51,13 @@ Kernel = RBF: <--- 1
 
 NN:
 
-64x64, 2 epochs, 4 batches, 1e-3 lr: 7% / with 750-250: 9%
-64x64, 2 epochs, 4 batches, 1 lr: 10% ma riconosce solo 1 classe
-64x64, 5 epochs, 4 batches, 1e-3 lr: 9%
-64x64, 10 epochs, 4 batches, 1e-3 lr: 12%
+100+10: 
+    64x64, 2 epochs, 4 batches, 1e-3 lr: 11% 
+    64x64, 5 epochs, 4 batches, 1e-3 lr: 7%
+    64x64, 10 epochs, 4 batches, 1e-3 lr: 3%
 
-128x128, 2 epochs, 4 batches, 1e-3 lr: 12% 
-128x128, 5 epochs, 4 batches, 1e-3 lr: 13% 
-128x128, 10 epochs, 4 batches, 1e-3 lr: 22% 
+750+250:
+    64x64, 2 epochs, 4 batches, 1e-3 lr: 10% 
+    128x128, 2 epochs, 4 batches, 1e-3 lr: 11% 
+    128x128, 5 epochs, 4 batches, 1e-3 lr: 8% 
 
