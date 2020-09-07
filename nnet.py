@@ -21,7 +21,7 @@ class Net(nn.Module):
         self.conv1 = nn.Conv2d(3, 6, 3)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
-        self.fc1 = nn.Linear(16 * 14 * 14, 2048) # 64x64: 14*14, 128x128: 30*30
+        self.fc1 = nn.Linear(16 * 30 * 30, 2048) # 64x64: 14*14, 128x128: 30*30
         self.fc2 = nn.Linear(2048, 1024)
         self.fc3 = nn.Linear(1024, n_classes)
 
@@ -132,6 +132,7 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
         # Save the obtained model
         torch.save(net.state_dict(), 'trained_network.pth')
 
+
     # 7. Test the network
     net.eval() # disable batch normalization
     dataiter = iter(test_loader)
@@ -146,6 +147,7 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
     predicted = torch.argmax(outputs, dim=1)
     print('Predicted: ', ' '.join('%5s' % classes[int(predicted[i])] for i in range(4)))
 
+    cmc = np.zeros((n_classes, n_classes))
     correct = 0
     total = 0
     with torch.no_grad():
@@ -157,11 +159,26 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
             predicted = torch.argmax(outputs, dim=1)
             total += curr_size
             correct += (predicted == test_labels[i*batch_size:(i+1)*batch_size]).sum().item()
+            for predict, test_label in zip(predicted, test_labels[i*batch_size:(i+1)*batch_size]):
+                cmc[int(test_label), int(predict)] += 1.0
             if i % 10 == 0:
                 print(predicted)
                 print(test_labels[i*batch_size:(i+1)*batch_size], end='\n')
 
-    print('Accuracy of the network on the test images: %d %%' % (100 * correct/total))
+    precision = []
+    recall = []
+    for i in range(n_classes):
+        if cmc[i,i] != 0:
+            precision.append(cmc[i,i] / np.sum(cmc[:,i]))
+            recall.append(cmc[i,i] / np.sum(cmc[i,:]))
+
+    precision = np.mean(np.asarray(precision))
+    recall = np.mean(np.asarray(recall))
+
+    print('Accuracy of the network on the test images: {0:.2f} %%'.format(100 * correct/total))
+    print('Classifier\'s mean precision: ' + "{0:.2f}".format(precision))
+    print('Classifier\'s mean recall : ' + "{0:.2f}".format(recall))
+
 
     # 8. Test performance for every class
     class_correct = list(0. for i in range(n_classes))

@@ -59,12 +59,9 @@ def svm(train_set, test_set, train_labels, test_labels):
             precision.append(cmc[i,i] / np.sum(cmc[:,i]))
             recall.append(cmc[i,i] / np.sum(cmc[i,:]))
 
-    precision = np.asarray(precision)
-    recall = np.asarray(recall)
-    precision = np.mean(precision)
-    recall = np.mean(recall)
+    precision = np.mean(np.asarray(precision))
+    recall = np.mean(np.asarray(recall))
     
-
     #print(cmc)
     #print(classification_report(predicted, test_labels))
     print('Classifier\'s accurancy: ' + "{0:.2f}".format(accurancy*100) + '%')

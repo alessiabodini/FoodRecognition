@@ -15,6 +15,7 @@ def knn(train_set, test_set, train_labels, test_labels):
     # 1. Set the parameters: K is the number of clostes neighbours to consider and fun is the metric chosen
     K = 1 # 1 or 3 or 5 or 7
     fun = 'cosine' # euclidean or correlation or minkowski or cosine
+    n_classes = 10
 
     #print(train_set.shape)
     #print(test_set.shape)
@@ -43,14 +44,31 @@ def knn(train_set, test_set, train_labels, test_labels):
     print('Finded the closest labels')
     '''
 
-    # 5. Calculate accurancy
+    # 5. Calculate accurancy, precisione and recall
     '''
     for i in range(len(test_labels)):
         if prediction[i] == test_labels[i]:
             print(str(prediction[i]) + ' ---> n.' + str(i))
     '''
     accurancy = np.sum(prediction == test_labels) / len(test_labels)
+
+    cmc = np.zeros((n_classes, n_classes))
+    for predict, test_label in zip(prediction, test_labels):
+        cmc[int(test_label), int(predict)] += 1.0
+    
+    precision = []
+    recall = []
+    for i in range(n_classes):
+        if cmc[i,i] != 0:
+            precision.append(cmc[i,i] / np.sum(cmc[:,i]))
+            recall.append(cmc[i,i] / np.sum(cmc[i,:]))
+
+    precision = np.mean(np.asarray(precision))
+    recall = np.mean(np.asarray(recall))
+    
     print('Classifier\'s accurancy: ' + '{0:.2f}'.format(accurancy * 100) + '%')
+    print('Classifier\'s mean precision: ' + "{0:.2f}".format(precision))
+    print('Classifier\'s mean recall : ' + "{0:.2f}".format(recall))
 
     #print(confusion_matrix(prediction, test_labels))
     #print(classification_report(prediction, test_labels))

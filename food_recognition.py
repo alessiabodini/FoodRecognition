@@ -73,7 +73,7 @@ else:
 if os.path.isfile(train_file_labels):
     train_labels = np.genfromtxt(train_file_labels, delimiter=',')
 else:
-    if 'train_labels' not in globals(): # NEED TO CHECK
+    if 'train_labels' not in globals(): # CHECK
         train_labels = extractLabels(train_set, n_images_per_class)
     with open(train_file_labels, 'w', newline='') as filename:
         writer = csv.writer(filename, delimiter=',')
@@ -90,7 +90,7 @@ else:
 if os.path.isfile(test_file_labels):
     test_labels = np.genfromtxt(test_file_labels, delimiter=',')
 else:
-    if 'test_labels' not in globals(): # NEED TO CHECK
+    if 'test_labels' not in globals(): # CHECK
         test_labels = extractLabels(test_set, n_images_per_class)
     with open(test_file_labels, 'w', newline='') as filename:
         writer = csv.writer(filename, delimiter=',')
@@ -102,7 +102,7 @@ print('Import completed.')
 
 # Classification process ------------------------------------------------------------------------------
 
-#knn(train_features, test_features, train_labels, test_labels)
+knn(train_features, test_features, train_labels, test_labels)
 #svm(train_features, test_features, train_labels, test_labels)
 
 # -----------------------------------------------------------------------------------------------------
@@ -123,7 +123,6 @@ test_images, test_labels = loadImages(test_set, n_images_per_class, 'test')
 # Classification process ------------------------------------------------------------------------------
 
 nnet(train_images, test_images, train_labels, test_labels, classes_list)
-#nnet_feat(train_features, test_features, train_labels, test_labels, classes_list)
 
 # -----------------------------------------------------------------------------------------------------
 
