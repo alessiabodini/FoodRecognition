@@ -41,6 +41,8 @@ Kernel = Poly: (Degree = 3) <--- 3
 Kernel = RBF: <--- 1
     Iterations = 10, gamma = scale, C = 1: 15% (Precision = 0,17, Recall = 0,30)
     Iterations = 10, gamma = auto, C = 1: 8% (Precision = 0,11, Recall = 0,16)
+    Iterations = 10, gamma = scale, C = 0,1: 8% (Precision = 0,12, Recall = 0,20)
+    Iterations = 10, gamma = auto, C = 0,1: 9% (Precision = 0,13, Recall = 0,23)
     
     Iterations = 100, gamma = scale, C = 1: 18% (Precision = 0,33, Recall = 0,60) <---
     Iterations = 100, gamma = auto, C = 1: 16% (Precision = 0,27, Recall = 0,40)
@@ -51,6 +53,8 @@ Kernel = RBF: <--- 1
 
     Iterations = 1000, gamma = scale, C = 1: 16% (Precision = 0,24, Recall = 0,32)
     Iterations = 1000, gamma = auto, C = 1: 14% (Precision = 0,21, Recall = 0,35)
+    Iterations = 1000, gamma = scale, C = 0,1: 16% (Precision = 0,22, Recall = 0,32)
+    Iterations = 1000, gamma = auto, C = 0,1: 16% (Precision = 0,26, Recall = 0,32)
 
 
 NN:
@@ -79,16 +83,12 @@ NN:
 
     64x64, 5 epochs, 4 batches, 1e-3 lr: 8,20% (Precision = 0,08, Recall = 0,08)
     64x64, 5 epochs, 4 batches, 1e-2 lr: 12,20% (Precision = 0,12, Recall = 0,12)
-    128x128, 5 epochs, 4 batches, 1e-3 lr: 6% (Precision = 0,14, Recall = 0,10)
+    128x128, 5 epochs, 4 batches, 1e-3 lr: 11,16% (Precision = 0,10, Recall = 0,11)
     128x128, 5 epochs, 4 batches, 1e-2 lr: 8,52% (Precision = 0,11, Recall = 0,09) 
 
     64x64, 10 epochs, 4 batches, 1e-3 lr: 10,60% (Precision = 0,11, Recall = 0,12)
     64x64, 10 epochs, 4 batches, 1e-2 lr: 9% (Precision = 0,11, Recall = 0,10) 
-    128x128, 10 epochs, 4 batches, 1e-3 lr: 9% (Precision = 0,30, Recall = 0,15)
-    128x128, 10 epochs, 4 batches, 1e-2 lr: 16% (Precision = 0,26, Recall = 0,27)
+    128x128, 10 epochs, 4 batches, 1e-3 lr: 9,88% (Precision = 0,11, Recall = 0,12) (1h)
+    128x128, 10 epochs, 4 batches, 1e-2 lr: 10,64% (Precision = 0,12, Recall = 0,11) (2h)
 
-
-    64x64, 2 epochs, 4 batches, 1e-3 lr: 10% 
-    128x128, 2 epochs, 4 batches, 1e-3 lr: 11% 
-    128x128, 5 epochs, 4 batches, 1e-3 lr: 8% 
 

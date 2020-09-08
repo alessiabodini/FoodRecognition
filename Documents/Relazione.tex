@@ -45,7 +45,7 @@
 
 % MOTIVAZIONI
 \section{Motivazioni e fondamento logico}
-Il seguente progetto si pone lo scopo di identificare una serie di cibi facendo uso di modelli visti durante il corso di studio (KNN, SVM e NN). Tale tipo di riconoscimento può risultare molto utile per quanto riguarda la classificazione di piatti in tutto il mondo, ad esempio per viaggiotori o stranieri che vogliono avere maggiori informazioni sul piatto o per coloro che sono interessati ad conoscere i valori nutrizionali del cibo proposto, il tutto con una sola foto. 
+Il seguente progetto si pone lo scopo di identificare una serie di cibi facendo uso di modelli visti durante il corso di studio (KNN, SVM e NN). Tale tipo di riconoscimento può risultare molto utile per quanto riguarda la classificazione di piatti in tutto il mondo, ad esempio per viaggiotori o stranieri che vogliono avere maggiori informazioni sul piatto o per coloro che sono interessati a conoscere i valori nutrizionali del cibo proposto, il tutto con una sola foto. 
 
 % STATO DELL'ARTE
 \section{Stato dell'arte}
@@ -59,17 +59,17 @@ Il mio progetto non si pone di superare i risultati già raggiunti dall'applicaz
 
 % METODOLOGIA 
 \section{Metodologia}
-Il lavoro si è suddiviso nella ricerca di un dataset e relativa estrazione dei dati e delle features poi utilizzate e nell'implementazione di alcuni dei modelli di riconoscimento visti durante il corso. Si spiegano di seguito nei dettagli tali processi. 
+Il lavoro si è suddiviso nella ricerca di un dataset e relativa estrazione dei dati e delle features e nell'implementazione di alcuni dei modelli di riconoscimento visti durante il corso. Si spiegano di seguito nei dettagli tali processi. 
 
 % Ricerca del dataset
 \subsection{Ricerca del dataset}
-Il dataset scelto denominato \emph{Food-101} \cite{food-101} è disponibile sul sito \url{kaggle.com} e presenta un totale di 10100 fotografie di piatti e cibi diversi. In particolare, il dataset è suddiviso in 101 categorie di cibi, ognuna composta da 1000 foto. La classe di appartenza è deducibile dalla cartella in cui essa è contenuta. 
+Il dataset scelto denominato \emph{Food-101} \cite{food-101} è disponibile sul sito \href{https://www.kaggle.com/kmader/food41}{kaggle.com} e presenta un totale di 10100 fotografie di piatti e cibi diversi. In particolare, il dataset è suddiviso in 101 categorie di cibi, ognuna composta da 1000 foto. La classe di appartenza è deducibile dalla cartella in cui essa è contenuta. 
 
-Per tutti e tre i metodi di riconoscimento usati si è fatto uso di un campione di sole 10 classi, prendendo 100 immagini ciascuna per la fase di training e 10 per quella di testing, ridimensionate in un formato 64x64. La scelta di questo insieme ridotto di immagini ha permesso di svolgere le operazioni in tempi relativamente brevi. Solo nel caso delle reti neurali si sono presi in considerazione per ogni categoria anche un training set di 750 immagini e un testing set di 250, prendendo le foto in input con due formati diversi 64x64 e 128x128. Negli altri due casi invece, si è visti da subito che l'utilizzo di un campione più grande portava spesso a peggiori risultati. 
+Per tutti e tre i metodi di riconoscimento usati si è fatto uso di un campione di sole 10 classi, prendendo 100 immagini ciascuna per la fase di training e 10 per quella di testing, ridimensionate in un formato 64x64. La scelta di questo insieme ridotto di immagini ha permesso di svolgere le operazioni in tempi relativamente brevi. Solo nel caso delle reti neurali si sono presi in considerazione per ogni categoria anche un training set di 750 immagini e un testing set di 250, prendendo le foto in input con due formati diversi 64x64 e 128x128. Negli altri due casi invece si è visto fin da subito che l'utilizzo di un campione più grande portava a risultati ben peggiori e si sono, per questo motivo, evitati ulteriori test. 
 
 % Estrazione delle features
 \subsection{Estrazione delle features}
-Per l'estrazione delle features si è fatto uso di una rete neurale disponibili tra i modelli di Torchvision e già richiamata tramite il file \emph{resnet.py} rilasciato per questo progetto. Tale modello è il ResNet-50, definito a partire dalla ricerca \emph{Deep Residual Learning for Image Recognition} \cite{resnet50}.
+Per l'estrazione delle features si è fatto uso di una rete neurale disponibile tra i modelli di Torchvision e già richiamata tramite il file \emph{resnet.py} rilasciato per questo progetto. Tale modello è il ResNet-50, definito a partire dalla ricerca \emph{Deep Residual Learning for Image Recognition} \cite{resnet50}.
 
 ResNet-50 è stato usato per i primi due metodi di riconoscimento usati (KNN e SVM), mentre alla rete neurale definita successivamente sono state date direttamente in pasto le immagini del dataset (nel formato specificato sopra).
  
@@ -89,19 +89,36 @@ Il metodo dei \emph{K-Nearest Neighbors} è stato costruito utilizzando diversi 
     \item correlazione: 
     \begin{math} 1 - \frac{(u - \bar u) \cdot (v - \bar v)}{\left \| (u - \bar u) \right \|_2 \cdot \left \| (v - \bar v) \right \|_2} \end{math};
 \end{itemize}
-Per ognuna delle precedente se ne è calcolata l'efficienza per K pari a 1, 3 e 7.
+Per ognuna delle precedente se ne è calcolata l'efficienza per \emph{K} pari a 1, 3 e 7.
+
+\medskip
+Dal punto di vista dell'implementazione, si è fatto uso delle seguenti funzioni e classi:
+\begin{itemize}
+    \item \emph{sklearn.preprocessing.StandardScaler} \cite{scikit-learn} per standardizzare le features in ingresso prima di darle in pasto al sistema;
+    \item \emph{scipy.spatial.distance.cdist} \cite{scipy} per il calcolo della distanza tra una coppia di features;
+    \item \emph{scipy.stats.mode} \cite{scipy} per trovare tra i \emph{K} vicini la classe più frequente.  
+\end{itemize}
 
 \paragraph{SVM}
 Per l'implementazione della \emph{Support Vector Machine} si sono presi in considerazione anche in questo caso di kernel diversi:
 \begin{itemize}
     \item lineare; 
     \item polinomiale, con grado pari a 3, 5 e 7;
-    \item RBF \emph{Radial Basis Function}, usando diversi valori per gamma ($\frac{1}{n\_features \cdot set.var()}$ se posta uguale a \emph{auto} o $\frac{1}{n\_features \cdot set.var()}$ se posta su \emph{scale}) e di C ($0.1, 1, 10$).
+    \item RBF (\emph{Radial Basis Function}), usando diversi valori per \emph{gamma} ($\frac{1}{n\_features \cdot set.var()}$ se posta uguale a \emph{auto} o $\frac{1}{n\_features \cdot set.var()}$ se posta su \emph{scale}) e di \emph{C} (0.1 e 1).
 \end{itemize}
 Per tutti i casi si è testato il modello su 10, 100 e 1000 iterazioni totali.
 
+\medskip
+Dal punto di vista dell'implementazione, si è fatto uso delle seguenti funzioni e classi:
+\begin{itemize}
+    \item \emph{sklearn.preprocessing.StandardScaler} \cite{scikit-learn} (come in precedenza);
+    \item \emph{sklearn.svm.SVC} \cite{scikit-learn}: classe che definisce un modello per la classificazione con SVM;
+    \item \emph{sklearn.svm.SVC.fit}: funzione che adatta il modello definito in base ai dati di training;
+    \item \emph{sklearn.svm.SVC.predict\_proba}: probabilità di appartenenza di un campione al modello sopra definito.
+\end{itemize}
+
 \paragraph{NN}
-La rete nurale è stato creata ad hoc per il dataset e comprende 6 diversi strati:
+La rete nurale è stata creata ad hoc per il dataset e comprende 6 diversi strati:
 \begin{enumerate}
     \item convoluzione 2D con kernel di dimensione 3x3, passando da 3 canali in input (RGB) a 6 finali;
     \item \emph{max-pooling} di dimensione 2x2;
@@ -112,11 +129,24 @@ La rete nurale è stato creata ad hoc per il dataset e comprende 6 diversi strat
 \end{enumerate}
 Tale configurazione è stata ispirata da quella presente in nel tutorial di PyTorch: \href{https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html}{Training a classifier}. Il tasso di apprendimento è stato impostato tra 0.001 e 0.01 e il numero di batch a 4. La fase di addestramento è stata fatta proseguire per 2, 5 e 10 epoche. 
 
+\medskip 
+Per la costruzione della rete neurale è stato utilizzato il framework PyTorch \cite{pytorch} e in particolare:
+\begin{itemize}
+    \item \emph{torch.utils.data.DataLoader}: produce dataset sotto forma di tensore su cui iterare;
+    \item \emph{torch.true\_divide} per normalizzare i valori in input dei pixel (da 0\-255 a 0\-1);
+    \item \emph{torch.nn.Module, torch.nn.Conv2d, torch.nn.MaxPool2d, torch.nn.Linear, torch.nn.functional.relu} per definire la topologia della rete neurale;
+    \item \emph{torch.nn.CrossEntropyLoss} per definire la funzione di perdita e la relativa funzione di \emph{backwards};
+    \item \emph{torch.optim.SGD} per stabilire l'ottimizzatore e le sue funzioni \emph{step} e \emph{zero\_grad}.
+\end{itemize}
+
+\newpage
 \section{Esperimenti e risultati raggiunti}
-In generale, gli esperimenti eseguiti non hanno raggiunto le aspettative. Il miglior valore di accuratezza, raggiunto tramite il metodo dei \emph{K-Nearest Neighbors}, è stato del 20\%, con valori di precisione e recall rispettivamente uguali a 0.33 e 0.34).
+Sfortunatamente, i test eseguiti sui tre diversi metodi di riconoscimento non hanno condotto a ottimi risultati. Il miglior valore di accuratezza, raggiunto tramite il metodo dei \emph{K-Nearest Neighbors}, è stato del 20\%, con valori di precisione e recall rispettivamente pari a 0.33 e 0.34).
+
+In tutti e tre i casi le performance sono state calcolate in base ad accuratezza e secondo i valori di \emph{precision} e \emph{recall}, estratti dalla matrice di confusione calcolata a partire dalle predizioni. 
 
 \medskip
-Per ogni metodo in particolare sono stati conseguiti i seguenti risultati. 
+Per ogni metodo, in particolare, sono stati conseguiti i seguenti risultati. 
 
 \subsection{KNN}
 \begin{table}[h]
@@ -127,16 +157,18 @@ Per ogni metodo in particolare sono stati conseguiti i seguenti risultati.
     \midrule
     Euclidean               & 18\% & 17\% & 9\%  \\ \hline
     Minkowski               & 18\% & 17\% & 9\%  \\ \hline
-    Cosine                  & 20\% & 19\% & 12\% \\ \hline
+    Cosine                  & \textbf{20\%} & 19\% & 12\% \\ \hline
     Correlation             & 19\% & 16\% & 14\% \\ \hline
     \end{tabular}
     \caption{Risultati ottenuti per il modello KNN.}
 \end{table}
 
-\subsection{SVM}
-Nel caso della \emph{Support Vector Machine} si distinguono i rusltati ottenuti con kernel lineare e polinomiale (praticamente uguali per grado pari a 3, 5 o 7) e quelli raggiunti tramite RBF (\emph{Radial Basis Function}), suddivisi in base ai valori scelti per gamma e per C.
+Si ha quindi che la maggior accuratezza nei risultati (20\%) si ha utilizzando come metrica la distanza del coseno e come 1 come numero di vicini considerati. 
 
-\begin{table}[h]
+\subsection{SVM}
+Nel caso della \emph{Support Vector Machine} si distinguono i rusltati ottenuti con kernel lineare e polinomiale (praticamente uguali per grado pari a 3, 5 o 7) e quelli raggiunti tramite RBF (\emph{Radial Basis Function}), suddivisi in base ai valori scelti per $\gamma$ e per C.
+
+\begin{table}[H]
     \centering
     \begin{tabular}{|l||*{5}{c|}} \hline
     \toprule
@@ -148,8 +180,56 @@ Nel caso della \emph{Support Vector Machine} si distinguono i rusltati ottenuti 
     \caption{Risultati ottenuti con la SVM con kernel lineare e polinomiale.}
 \end{table}
 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l||*{5}{c|}} \hline
+    \toprule
+    \diagbox{$\gamma$, C}{Iterations} & 10 & 100 & 1000 \\ \hline
+    \midrule
+    $\gamma = scale, C = 1$   & 15\% & \textbf{18\%}  & 16\%  \\ \hline
+    $\gamma = scale, C = 0.1$ & 8\% & 17\%  & 16\%  \\ \hline
+    $\gamma = auto, C = 1$    & 8\%  & 16\%  & 14\%  \\ \hline
+    $\gamma = auto, C = 0.1$  & 9\% & 13\%  & 16\%  \\ \hline
+    \end{tabular}
+    \caption{Risultati ottenuti con la SVM con kernel RBF.}
+\end{table}
+
+Come si può notare dalle tabelle il risultato migliore, 18\% di accuratezza, viene ottenuto usando un kernel RBF, con $\gamma = scale$ e C = 1 (valori di default). In questo caso si ha un $precision = 0.33$ e una $recall = 0.60$. 
+
+\subsection{NN}
+Per addestrare la rete neurale sono state fatte molte prove differenti, in base al numero di immagini considerate (100/10 o 750/250), in base alla dimensione di quest'ultime (64x64 o 128x128), in base al numero di epoche (2, 5 e 10) e infine rispetto al \emph{learning rate}. Per semplificare maggiormente le tabelle contenenti di valori di accuratezza risultati da questi esperimenti vengono riportati di seguito i valori maggiori ottenuti con uno tra i due \emph{learning rate} presi in considerazione, ovvero 0.01 e 0.001.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l||*{5}{c|}} \hline
+    \toprule
+    \diagbox{Size}{Epochs} & 2 & 5 & 10 \\ \hline
+    \midrule
+    64x64             & 11\% & 11\% & 10\%  \\ \hline
+    128x128           & 7\%  & \textbf{16\%} & 16\%  \\ \hline
+    \end{tabular}
+    \caption{Risultati ottenuti con il NN con un train set di 100 immagini e un test set di 10.}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l||*{5}{c|}} \hline
+    \toprule
+    \diagbox{Size}{Epochs} & 2 & 5 & 10 \\ \hline
+    \midrule
+    64x64             & 12,60\% & 12,20\% & 10,60\%  \\ \hline
+    128x128           & 12,16\% & 11,16\% & 10,64\%  \\ \hline
+    \end{tabular}
+    \caption{Risultati ottenuti con il NN con un train set di 750 immagini e un test set di 250.}
+\end{table}
+
+Utilizzando questo tipo di classificazione quindi ci si aspetta al massimo un 16\% di accuratezza, con valori di precisione e recall rispettivamente pari a 0.22 e 0.40.
+
 \section{Conclusioni}
-4
+Le sperimentazioni fatte utilizzando questi tre diversi metodi di classificazione fanno capire, nonostante i bassi risultati raggiunti, come talvolta sistemi più semplici quali i \emph{K-Nearest Neighbors} possono battere le più complesse reti neurali. 
+
+%Le sperimentazioni fatte utilizzando questi tre diversi metodi di classificazione fanno capire innanzitutto come sia necessaria spesso più esperienza e soprattutto molto tempo per poter definire in ogni situazione i migliori parametri da utilizzare. Inoltre, questo progetto ha dimostrato come a volte partire da un dataset molto grande come \emph{Food-101} \cite{food-101} non implichi necessariamente buoni risultati. 
+
 \pagebreak
 \bibliography{Bibliografia}{}
 \bibliographystyle{plain}

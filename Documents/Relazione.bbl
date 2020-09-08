@@ -13,8 +13,42 @@ Azumio Inc.
 K~Scott Mader.
 \newblock Food-101, 2018.
 
+\bibitem{pytorch}
+Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
+  Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban
+  Desmaison, Andreas Kopf, Edward Yang, Zachary DeVito, Martin Raison, Alykhan
+  Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu~Fang, Junjie Bai, and Soumith
+  Chintala.
+\newblock Pytorch: An imperative style, high-performance deep learning library.
+\newblock In H.~Wallach, H.~Larochelle, A.~Beygelzimer, F.~d\textquotesingle
+  Alch\'{e}-Buc, E.~Fox, and R.~Garnett, editors, {\em Advances in Neural
+  Information Processing Systems 32}, pages 8024--8035. Curran Associates,
+  Inc., 2019.
+
+\bibitem{scikit-learn}
+F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel,
+  M.~Blondel, P.~Prettenhofer, R.~Weiss, V.~Dubourg, J.~Vanderplas, A.~Passos,
+  D.~Cournapeau, M.~Brucher, M.~Perrot, and E.~Duchesnay.
+\newblock Scikit-learn: Machine learning in {P}ython.
+\newblock {\em Journal of Machine Learning Research}, 12:2825--2830, 2011.
+
 \bibitem{foodai}
 Prof. Steven~HOI R\&D~team.
 \newblock Foodai.
+
+\bibitem{scipy}
+Pauli {Virtanen}, Ralf {Gommers}, Travis~E. {Oliphant}, Matt {Haberland}, Tyler
+  {Reddy}, David {Cournapeau}, Evgeni {Burovski}, Pearu {Peterson}, Warren
+  {Weckesser}, Jonathan {Bright}, St{\'e}fan~J. {van der Walt}, Matthew
+  {Brett}, Joshua {Wilson}, K.~{Jarrod Millman}, Nikolay {Mayorov}, Andrew
+  R.~J. {Nelson}, Eric {Jones}, Robert {Kern}, Eric {Larson}, CJ~{Carey},
+  {\.I}lhan {Polat}, Yu~{Feng}, Eric~W. {Moore}, Jake {Vand erPlas}, Denis
+  {Laxalde}, Josef {Perktold}, Robert {Cimrman}, Ian {Henriksen}, E.~A.
+  {Quintero}, Charles~R {Harris}, Anne~M. {Archibald}, Ant{\^o}nio~H.
+  {Ribeiro}, Fabian {Pedregosa}, Paul {van Mulbregt}, and SciPy 1.~0
+  {Contributors}.
+\newblock {SciPy 1.0: Fundamental Algorithms for Scientific Computing in
+  Python}.
+\newblock {\em Nature Methods}, 17:261--272, 2020.
 
 \end{thebibliography}

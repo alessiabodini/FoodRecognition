@@ -13,7 +13,7 @@ path_h5 = path
 n_classes = 10
 learning_rate = 1e-2
 batch_size = 4
-epochs = 5
+epochs = 2
 
 class Net(nn.Module):
     def __init__(self):
@@ -21,7 +21,7 @@ class Net(nn.Module):
         self.conv1 = nn.Conv2d(3, 6, 3)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
-        self.fc1 = nn.Linear(16 * 30 * 30, 2048) # 64x64: 14*14, 128x128: 30*30
+        self.fc1 = nn.Linear(16 * 14 * 14, 2048) # 64x64: 14*14, 128x128: 30*30
         self.fc2 = nn.Linear(2048, 1024)
         self.fc3 = nn.Linear(1024, n_classes)
 

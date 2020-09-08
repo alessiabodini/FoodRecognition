@@ -103,7 +103,7 @@ print('Import completed.')
 # Classification process ------------------------------------------------------------------------------
 
 knn(train_features, test_features, train_labels, test_labels)
-#svm(train_features, test_features, train_labels, test_labels)
+svm(train_features, test_features, train_labels, test_labels)
 
 # -----------------------------------------------------------------------------------------------------
 '''
@@ -113,9 +113,9 @@ knn(train_features, test_features, train_labels, test_labels)
 
 # Import images for train and test set ----------------------------------------------------------------
 
-n_images_per_class = 750
+n_images_per_class = 100
 train_images, train_labels = loadImages(train_set, n_images_per_class, 'train')
-n_images_per_class = 250
+n_images_per_class = 10
 test_images, test_labels = loadImages(test_set, n_images_per_class, 'test')
 
 # -----------------------------------------------------------------------------------------------------
