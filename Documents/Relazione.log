@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.8.21)  29 AUG 2020 16:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.8.21)  8 SEP 2020 12:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/ale19/OneDrive - Università degli Studi di Verona/Magistrale/Teorie e tecniche del riconoscimento/Progetto/FoodRecognition/Documents/Relazione.tex"
-(c:/Users/ale19/OneDrive - Università degli Studi di Verona/Magistrale/Teorie e tecniche del riconoscimento/Progetto/FoodRecognition/Documents/Relazione.tex
+**c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.tex
+(c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.tex
 LaTeX2e <2020-02-02> patch level 5
 L3 programming layer <2020-08-07> (c:/texlive/2020/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
@@ -415,38 +415,64 @@ LaTeX Warning: Command \@xhline  has changed.
 \TX@delta=\dimen273
 \TX@cols=\count289
 \TX@ftn=\toks30
+) (c:/texlive/2020/texmf-dist/tex/latex/diagbox/diagbox.sty
+Package: diagbox 2020/02/09 v2.3 Making table heads with diagonal lines
+ (c:/texlive/2020/texmf-dist/tex/latex/pict2e/pict2e.sty
+Package: pict2e 2020/06/20 v0.3e Improved picture commands (HjG,RN,JT)
+ (c:/texlive/2020/texmf-dist/tex/latex/pict2e/pict2e.cfg
+File: pict2e.cfg 2016/02/05 v0.1u pict2e configuration for teTeX/TeXLive
+)
+Package pict2e Info: Driver file: pdftex.def on input line 110.
+Package pict2e Info: Driver file for pict2e: p2e-pdftex.def on input line 112.
+ (c:/texlive/2020/texmf-dist/tex/latex/pict2e/p2e-pdftex.def
+File: p2e-pdftex.def 2016/02/05 v0.1u Driver-dependant file (RN,HjG,JT)
+)
+\pIIe@GRAPH=\toks31
+\@arclen=\dimen274
+\@arcrad=\dimen275
+\@tempdimd=\dimen276
+)
+\diagbox@boxa=\box55
+\diagbox@boxb=\box56
+\diagbox@boxm=\box57
+\diagbox@wd=\dimen277
+\diagbox@ht=\dimen278
+\diagbox@insepl=\dimen279
+\diagbox@insepr=\dimen280
+\diagbox@outsepl=\dimen281
+\diagbox@outsepr=\dimen282
 ) (c:/texlive/2020/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count290
-\lst@gtempboxa=\box55
-\lst@token=\toks31
+\lst@gtempboxa=\box58
+\lst@token=\toks32
 \lst@length=\count291
-\lst@currlwidth=\dimen274
+\lst@currlwidth=\dimen283
 \lst@column=\count292
 \lst@pos=\count293
-\lst@lostspace=\dimen275
-\lst@width=\dimen276
+\lst@lostspace=\dimen284
+\lst@width=\dimen285
 \lst@newlines=\count294
 \lst@lineno=\count295
-\lst@maxwidth=\dimen277
+\lst@maxwidth=\dimen286
  (c:/texlive/2020/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 \c@lstnumber=\count296
 \lst@skipnumbers=\count297
-\lst@framebox=\box56
+\lst@framebox=\box59
 ) (c:/texlive/2020/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
 ))
 Package: listings 2020/03/24 1.8d (Carsten Heinz)
  (c:/texlive/2020/texmf-dist/tex/latex/tools/enumerate.sty
 Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
-\@enLab=\toks32
+\@enLab=\toks33
 ) (c:/texlive/2020/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count298
-\float@exts=\toks33
-\float@box=\box57
-\@float@everytoks=\toks34
-\@floatcapt=\box58
+\float@exts=\toks34
+\float@box=\box60
+\@float@everytoks=\toks35
+\@floatcapt=\box61
 ) (c:/texlive/2020/texmf-dist/tex/latex/cite/cite.sty
 LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
@@ -454,8 +480,8 @@ Package: cite 2015/02/27  v 5.5
 ) (c:/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-08-07 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count299
-\l__pdf_internal_box=\box59
-) (c:/Users/ale19/OneDrive - Università degli Studi di Verona/Magistrale/Teorie e tecniche del riconoscimento/Progetto/FoodRecognition/Documents/Relazione.aux)
+\l__pdf_internal_box=\box62
+) (c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.aux)
 \openout1 = `Relazione.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
@@ -488,23 +514,23 @@ italian.ldf    on input line 18.
 (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count300
-\scratchdimen=\dimen278
-\scratchbox=\box60
+\scratchdimen=\dimen287
+\scratchbox=\box63
 \nofMPsegments=\count301
 \nofMParguments=\count302
-\everyMPshowfont=\toks35
+\everyMPshowfont=\toks36
 \MPscratchCnt=\count303
-\MPscratchDim=\dimen279
+\MPscratchDim=\dimen288
 \MPnumerator=\count304
 \makeMPintoPDFobject=\count305
-\everyMPtoPDFconversion=\toks36
+\everyMPtoPDFconversion=\toks37
 ) (c:/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (c:/texlive/2020/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\AtBeginShipoutBox=\box61
+\AtBeginShipoutBox=\box64
  (c:/texlive/2020/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2019/11/23 v1.2a Standard LaTeX Color (DPC)
  (c:/texlive/2020/texmf-dist/tex/latex/graphics-cfg/color.cfg
@@ -525,7 +551,7 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 18.
 LaTeX Info: Redefining \pageref on input line 18.
 LaTeX Info: Redefining \nameref on input line 18.
- (c:/Users/ale19/OneDrive - Università degli Studi di Verona/Magistrale/Teorie e tecniche del riconoscimento/Progetto/FoodRecognition/Documents/Relazione.out) (c:/Users/ale19/OneDrive - Università degli Studi di Verona/Magistrale/Teorie e tecniche del riconoscimento/Progetto/FoodRecognition/Documents/Relazione.out)
+ (c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.out) (c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.out)
 \@outlinefile=\write4
 \openout4 = `Relazione.out'.
 
@@ -569,14 +595,14 @@ Package caption Info: End \AtBeginDocument code.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \c@lstlisting=\count307
-<Relazione-frn.pdf, id=40, 597.50829pt x 845.0471pt>
+<Relazione-frn.pdf, id=48, 597.50829pt x 845.0471pt>
 File: Relazione-frn.pdf Graphic file (type pdf)
 <use Relazione-frn.pdf>
 Package pdftex.def Info: Relazione-frn.pdf  used on input line 20.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 [1
 
- <c:/Users/ale19/OneDrive - Università degli Studi di Verona/Magistrale/Teorie e tecniche del riconoscimento/Progetto/FoodRecognition/Documents/Relazione-frn.pdf{c:/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}>] (c:/Users/ale19/OneDrive - Università degli Studi di Verona/Magistrale/Teorie e tecniche del riconoscimento/Progetto/FoodRecognition/Documents/Relazione.toc)
+ <c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione-frn.pdf{c:/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}>] (c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.toc)
 \tf@toc=\write5
 \openout5 = `Relazione.toc'.
 
@@ -584,29 +610,33 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
 <to be read again> 
                    \relax 
 l.44 \newpage
-              [1] [2] [3] [4] (c:/Users/ale19/OneDrive - Università degli Studi di Verona/Magistrale/Teorie e tecniche del riconoscimento/Progetto/FoodRecognition/Documents/Relazione.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 118.
- [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 118.
- (c:/Users/ale19/OneDrive - Università degli Studi di Verona/Magistrale/Teorie e tecniche del riconoscimento/Progetto/FoodRecognition/Documents/Relazione.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 118.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 118.
+              [1] [2] [3]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+(c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.bbl [4] [5])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 157.
+ [6]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 157.
+ (c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 157.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 157.
 Package rerunfilecheck Info: File `Relazione.out' has not changed.
-(rerunfilecheck)             Checksum: BCD583E65CF6FB2DE2241ED7ADC43C5D;542.
+(rerunfilecheck)             Checksum: 05A5C6D40ADA5BF592C2E978E3738931;648.
  ) 
 Here is how much of TeX's memory you used:
- 12172 strings out of 480893
- 188594 string characters out of 5911972
- 487540 words of memory out of 5000000
- 27506 multiletter control sequences out of 15000+600000
+ 12443 strings out of 480893
+ 190994 string characters out of 5911972
+ 497203 words of memory out of 5000000
+ 27759 multiletter control sequences out of 15000+600000
  540874 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,11n,47p,955b,420s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on "c:/Users/ale19/OneDrive - Università degli Studi di Verona/Magistrale/Teorie e tecniche del riconoscimento/Progetto/FoodRecognition/Documents/Relazione.pdf" (6 pages, 462749 bytes).
+ 45i,16n,77p,859b,378s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.pdf (7 pages, 497644 bytes).
 PDF statistics:
- 170 PDF objects out of 1000 (max. 8388607)
- 146 compressed objects within 2 object streams
- 30 named destinations out of 1000 (max. 500000)
- 78 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 205 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
+ 35 named destinations out of 1000 (max. 500000)
+ 94 words of extra memory for PDF output out of 10000 (max. 10000000)
 

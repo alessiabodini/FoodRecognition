@@ -72,7 +72,22 @@ NN:
     128x128, 10 epochs, 4 batches, 1e-2 lr: 16% (Precision = 0,26, Recall = 0,27)
 
 750+250:
-    # NOT UPDATED
+    64x64, 2 epochs, 4 batches, 1e-3 lr: 9,52% (Precision = 0,12, Recall = 0,10)
+    64x64, 2 epochs, 4 batches, 1e-2 lr: 12,60% (Precision = 0,09, Recall = 0,14)
+    128x128, 2 epochs, 4 batches, 1e-3 lr: 12,16% (Precision = 0,12, Recall = 0,12)
+    128x128, 2 epochs, 4 batches, 1e-2 lr: 10,48% (Precision = 0,13, Recall = 0,10)
+
+    64x64, 5 epochs, 4 batches, 1e-3 lr: 8,20% (Precision = 0,08, Recall = 0,08)
+    64x64, 5 epochs, 4 batches, 1e-2 lr: 12,20% (Precision = 0,12, Recall = 0,12)
+    128x128, 5 epochs, 4 batches, 1e-3 lr: 6% (Precision = 0,14, Recall = 0,10)
+    128x128, 5 epochs, 4 batches, 1e-2 lr: 8,52% (Precision = 0,11, Recall = 0,09) 
+
+    64x64, 10 epochs, 4 batches, 1e-3 lr: 10,60% (Precision = 0,11, Recall = 0,12)
+    64x64, 10 epochs, 4 batches, 1e-2 lr: 9% (Precision = 0,11, Recall = 0,10) 
+    128x128, 10 epochs, 4 batches, 1e-3 lr: 9% (Precision = 0,30, Recall = 0,15)
+    128x128, 10 epochs, 4 batches, 1e-2 lr: 16% (Precision = 0,26, Recall = 0,27)
+
+
     64x64, 2 epochs, 4 batches, 1e-3 lr: 10% 
     128x128, 2 epochs, 4 batches, 1e-3 lr: 11% 
     128x128, 5 epochs, 4 batches, 1e-3 lr: 8% 

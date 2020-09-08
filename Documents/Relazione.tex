@@ -8,8 +8,8 @@
 \graphicspath{{References//}}
 \usepackage[margin=1in]{geometry}
 \usepackage{adjustbox}
-\usepackage{tabls}
-\usepackage{tabularx}
+\usepackage{tabls, tabularx}
+\usepackage{diagbox}
 \usepackage{listings}
 \usepackage{enumerate}
 \usepackage{float}
@@ -61,38 +61,44 @@ Il mio progetto non si pone di superare i risultati già raggiunti dall'applicaz
 \section{Metodologia}
 Il lavoro si è suddiviso nella ricerca di un dataset e relativa estrazione dei dati e delle features poi utilizzate e nell'implementazione di alcuni dei modelli di riconoscimento visti durante il corso. Si spiegano di seguito nei dettagli tali processi. 
 
+% Ricerca del dataset
 \subsection{Ricerca del dataset}
-Il dataset scelto denominato \emph{Food-101} \cite{food-101} è disponibile sul sito \url{kaggle.com} e presenta un totale di 10100 fotografie di piatti e cibi diversi. In particolare, il dataset è suddiviso in 101 categorie di cibi, ognuno già etichettato, e presenta alcuni file HDF5 dai quali è possibile estrarre direttamente training e testing set con una risoluzione minore rispetto all'originale, così da velocizzare le operazioni. I dati utilizzati nelle vari modelli sono stati presi tutti dagli stessi due file, così da mantenere una certa coerenza con i risultati raggiunti:
-\begin{itemize}
-    \item \textit{food\_c101\_n10099\_r64x64x3.h5} per il training set, con 10099 immagini (almeno una per categoria) con risoluzione 64x64x3 (RGB, uint8);
-    \item \textit{food\_test\_c101\_n1000\_r64x64x3.h5} per il testing set, con 1000 immagini della stessa risoluzione indicata per il training set. 
-\end{itemize}
+Il dataset scelto denominato \emph{Food-101} \cite{food-101} è disponibile sul sito \url{kaggle.com} e presenta un totale di 10100 fotografie di piatti e cibi diversi. In particolare, il dataset è suddiviso in 101 categorie di cibi, ognuna composta da 1000 foto. La classe di appartenza è deducibile dalla cartella in cui essa è contenuta. 
 
+Per tutti e tre i metodi di riconoscimento usati si è fatto uso di un campione di sole 10 classi, prendendo 100 immagini ciascuna per la fase di training e 10 per quella di testing, ridimensionate in un formato 64x64. La scelta di questo insieme ridotto di immagini ha permesso di svolgere le operazioni in tempi relativamente brevi. Solo nel caso delle reti neurali si sono presi in considerazione per ogni categoria anche un training set di 750 immagini e un testing set di 250, prendendo le foto in input con due formati diversi 64x64 e 128x128. Negli altri due casi invece, si è visti da subito che l'utilizzo di un campione più grande portava spesso a peggiori risultati. 
+
+% Estrazione delle features
 \subsection{Estrazione delle features}
 Per l'estrazione delle features si è fatto uso di una rete neurale disponibili tra i modelli di Torchvision e già richiamata tramite il file \emph{resnet.py} rilasciato per questo progetto. Tale modello è il ResNet-50, definito a partire dalla ricerca \emph{Deep Residual Learning for Image Recognition} \cite{resnet50}.
 
 ResNet-50 è stato usato per i primi due metodi di riconoscimento usati (KNN e SVM), mentre alla rete neurale definita successivamente sono state date direttamente in pasto le immagini del dataset (nel formato specificato sopra).
  
+% Metodi di riconoscimento
 \subsection{Metodi di riconoscimento usati}
 I metodi di riconoscimento implementati sono i seguenti. 
 
 \paragraph{KNN}
 Il metodo dei \emph{K-Nearest Neighbors} è stato costruito utilizzando diversi tipi di metriche e un diverso numero di vicini (\emph{K}) considerati per l'attribuzione a una certa categoria. In particolare si è fatto uso delle seguenti metriche per il calcolo delle distanze tra le features:
 \begin{itemize}
-    \item distanza euclidea;
-    \item correlazione;
-    \item distanza di Minkowski.
+    \item distanza euclidea: 
+    \begin{math} \left \| u - v \right \| \end{math};
+    \item distanza di Minkowski:
+    \begin{math} \left \| u - v \right \|_p \end{math};
+    \item distanza del coseno: 
+    \begin{math} 1 - \frac{u \cdot v}{\left \| u \right \|_2 \cdot \left \| v \right \|_2} \end{math};
+    \item correlazione: 
+    \begin{math} 1 - \frac{(u - \bar u) \cdot (v - \bar v)}{\left \| (u - \bar u) \right \|_2 \cdot \left \| (v - \bar v) \right \|_2} \end{math};
 \end{itemize}
 Per ognuna delle precedente se ne è calcolata l'efficienza per K pari a 1, 3 e 7.
 
 \paragraph{SVM}
 Per l'implementazione della \emph{Support Vector Machine} si sono presi in considerazione anche in questo caso di kernel diversi:
 \begin{itemize}
-    \item polinomiale;
-    \item RBF \emph{Radial Basis Function}
-    \item sigmoide.
+    \item lineare; 
+    \item polinomiale, con grado pari a 3, 5 e 7;
+    \item RBF \emph{Radial Basis Function}, usando diversi valori per gamma ($\frac{1}{n\_features \cdot set.var()}$ se posta uguale a \emph{auto} o $\frac{1}{n\_features \cdot set.var()}$ se posta su \emph{scale}) e di C ($0.1, 1, 10$).
 \end{itemize}
-Per tutti i casi si è testato il modello su 10 iterazioni totali. 
+Per tutti i casi si è testato il modello su 10, 100 e 1000 iterazioni totali.
 
 \paragraph{NN}
 La rete nurale è stato creata ad hoc per il dataset e comprende 6 diversi strati:
@@ -100,17 +106,50 @@ La rete nurale è stato creata ad hoc per il dataset e comprende 6 diversi strat
     \item convoluzione 2D con kernel di dimensione 3x3, passando da 3 canali in input (RGB) a 6 finali;
     \item \emph{max-pooling} di dimensione 2x2;
     \item seconda convoluzione 2D con uguale kernel (3x3), passando da 6 canali in input a 16 in output;
-    \item trasformazione lineare che prende come features in input l'insieme dei valori che riguardano l'immagine come finora è stata modificata, cioè con $16 \times 14 \times 14$ ($numero di canali \times altezza \times larghezza$), che confluiscono in 2048 features in output;
-    \item secondo trasformazione lineare che riduce le features in 1024;
-    \item terza e ultima trasformazione lineare che da 1024 features passa a sole 101 che rappresentano il numero di classi finali di appartenza. La feature che presenta il valore più alto sarà identificata come la classe di appartenza.
+    \item trasformazione lineare che prende come features in input l'insieme dei valori che riguardano l'immagine come finora è stata modificata, cioè con $16 \times 14$ (o 30) $\times 14$ (o 30) ($numero di canali \times altezza \times larghezza$), che confluiscono in 2048 features in output;
+    \item seconda trasformazione lineare che riduce le features in 1024;
+    \item terza e ultima trasformazione lineare che da 1024 features passa a sole 10 che rappresentano il numero di classi finali di appartenza. La feature che presenta il valore più alto sarà identificata come la classe di appartenza.
 \end{enumerate}
-Tale configurazione è stata ispirata da quella presente in nel tutorial di PyTorch: \href{https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html}{Training a classifier}. Il tasso di apprendimento è stato impostato a 0.001 e il numero di batch a 4. La fase di addestramento continua per un totale di 5 epoche. 
+Tale configurazione è stata ispirata da quella presente in nel tutorial di PyTorch: \href{https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html}{Training a classifier}. Il tasso di apprendimento è stato impostato tra 0.001 e 0.01 e il numero di batch a 4. La fase di addestramento è stata fatta proseguire per 2, 5 e 10 epoche. 
 
 \section{Esperimenti e risultati raggiunti}
+In generale, gli esperimenti eseguiti non hanno raggiunto le aspettative. Il miglior valore di accuratezza, raggiunto tramite il metodo dei \emph{K-Nearest Neighbors}, è stato del 20\%, con valori di precisione e recall rispettivamente uguali a 0.33 e 0.34).
 
+\medskip
+Per ogni metodo in particolare sono stati conseguiti i seguenti risultati. 
+
+\subsection{KNN}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l||*{5}{c|}} \hline
+    \toprule
+    \diagbox{Metric}{K} & 1 & 3 & 7 \\ \hline
+    \midrule
+    Euclidean               & 18\% & 17\% & 9\%  \\ \hline
+    Minkowski               & 18\% & 17\% & 9\%  \\ \hline
+    Cosine                  & 20\% & 19\% & 12\% \\ \hline
+    Correlation             & 19\% & 16\% & 14\% \\ \hline
+    \end{tabular}
+    \caption{Risultati ottenuti per il modello KNN.}
+\end{table}
+
+\subsection{SVM}
+Nel caso della \emph{Support Vector Machine} si distinguono i rusltati ottenuti con kernel lineare e polinomiale (praticamente uguali per grado pari a 3, 5 o 7) e quelli raggiunti tramite RBF (\emph{Radial Basis Function}), suddivisi in base ai valori scelti per gamma e per C.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l||*{5}{c|}} \hline
+    \toprule
+    \diagbox{Kernel}{Iterations} & 10 & 100 & 1000 \\ \hline
+    \midrule
+    Linear               & 10\% & 14\% & 15\%  \\ \hline
+    Polynomial           & 10\% & 7\%  & 5\%   \\ \hline
+    \end{tabular}
+    \caption{Risultati ottenuti con la SVM con kernel lineare e polinomiale.}
+\end{table}
 
 \section{Conclusioni}
-
+4
 \pagebreak
 \bibliography{Bibliografia}{}
 \bibliographystyle{plain}

@@ -11,9 +11,9 @@ from torchvision import transforms as tr
 path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101'))
 path_h5 = path
 n_classes = 10
-learning_rate = 1e-3
+learning_rate = 1e-2
 batch_size = 4
-epochs = 2
+epochs = 5
 
 class Net(nn.Module):
     def __init__(self):
@@ -175,7 +175,7 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
     precision = np.mean(np.asarray(precision))
     recall = np.mean(np.asarray(recall))
 
-    print('Accuracy of the network on the test images: {0:.2f} %%'.format(100 * correct/total))
+    print('Accuracy of the network on the test images: {0:.2f} %'.format(100 * correct/total))
     print('Classifier\'s mean precision: ' + "{0:.2f}".format(precision))
     print('Classifier\'s mean recall : ' + "{0:.2f}".format(recall))
 

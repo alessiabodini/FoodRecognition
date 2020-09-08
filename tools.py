@@ -22,7 +22,7 @@ def loadImages(t_set, n_images_per_class, phase):
             name = t_set[c][i]
             labels.append(n_class)
             img = cv2.imread(os.path.join(path_img, name))
-            img = cv2.resize(img,(64,64))
+            img = cv2.resize(img,(128,128))
             images.append(img)
         n_class += 1
         if c == 'breakfast_burrito':

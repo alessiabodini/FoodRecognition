@@ -22,12 +22,13 @@ def knn(train_set, test_set, train_labels, test_labels):
     #print(train_labels.shape)
     #print(test_labels.shape)
 
+    '''
     # 2.0. Direct method with KNeighborsClassifier
     classifier = KNeighborsClassifier(n_neighbors=K, metric=fun)
     classifier.fit(train_set, train_labels)
     prediction = classifier.predict(test_set)
-
     '''
+
     # 2.1 Calculate the distance between train objects and test objects 
     D = cdist(train_set, test_set, metric=fun)
     #print(D.shape)
@@ -41,8 +42,7 @@ def knn(train_set, test_set, train_labels, test_labels):
     # 4. Check the labels of the K closest neighbours to find the most frequent using mode
     neighbors_labels = train_labels[k_neighbors]
     prediction = stats.mode(neighbors_labels, axis=0)[0][0]
-    print('Finded the closest labels')
-    '''
+    print('Finded the closest labels.')
 
     # 5. Calculate accurancy, precisione and recall
     '''
