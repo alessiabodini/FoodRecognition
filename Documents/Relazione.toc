@@ -10,8 +10,8 @@
 \contentsline {paragraph}{KNN}{3}{section*.2}%
 \contentsline {paragraph}{SVM}{4}{section*.3}%
 \contentsline {paragraph}{NN}{4}{section*.4}%
-\contentsline {section}{\numberline {5}Esperimenti e risultati raggiunti}{5}{section.5}%
-\contentsline {subsection}{\numberline {5.1}KNN}{5}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}SVM}{5}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}NN}{6}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Conclusioni}{6}{section.6}%
+\contentsline {section}{\numberline {5}Esperimenti e risultati raggiunti}{6}{section.5}%
+\contentsline {subsection}{\numberline {5.1}KNN}{6}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}SVM}{6}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}NN}{7}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Conclusioni}{7}{section.6}%

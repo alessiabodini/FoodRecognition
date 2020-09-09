@@ -1,9 +1,19 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{opencv}
+G.~Bradski.
+\newblock {The OpenCV Library}.
+\newblock {\em Dr. Dobb's Journal of Software Tools}, 2000.
 
 \bibitem{resnet50}
 Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
 \newblock Deep residual learning for image recognition.
 \newblock {\em CoRR}, abs/1512.03385, 2015.
+
+\bibitem{matplotlib}
+J.~D. Hunter.
+\newblock Matplotlib: A 2d graphics environment.
+\newblock {\em Computing in Science \& Engineering}, 9(3):90--95, 2007.
 
 \bibitem{calorie-mama}
 Azumio Inc.
@@ -12,6 +22,11 @@ Azumio Inc.
 \bibitem{food-101}
 K~Scott Mader.
 \newblock Food-101, 2018.
+
+\bibitem{numpy1}
+Travis~E Oliphant.
+\newblock {\em A guide to NumPy}, volume~1.
+\newblock Trelgol Publishing USA, 2006.
 
 \bibitem{pytorch}
 Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
@@ -36,6 +51,11 @@ F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel,
 Prof. Steven~HOI R\&D~team.
 \newblock Foodai.
 
+\bibitem{numpy2}
+Stefan Van Der~Walt, S~Chris Colbert, and Gael Varoquaux.
+\newblock The numpy array: a structure for efficient numerical computation.
+\newblock {\em Computing in Science \& Engineering}, 13(2):22, 2011.
+
 \bibitem{scipy}
 Pauli {Virtanen}, Ralf {Gommers}, Travis~E. {Oliphant}, Matt {Haberland}, Tyler
   {Reddy}, David {Cournapeau}, Evgeni {Burovski}, Pearu {Peterson}, Warren
@@ -50,5 +70,12 @@ Pauli {Virtanen}, Ralf {Gommers}, Travis~E. {Oliphant}, Matt {Haberland}, Tyler
 \newblock {SciPy 1.0: Fundamental Algorithms for Scientific Computing in
   Python}.
 \newblock {\em Nature Methods}, 17:261--272, 2020.
+
+\bibitem{pandas}
+{W}es {M}c{K}inney.
+\newblock {D}ata {S}tructures for {S}tatistical {C}omputing in {P}ython.
+\newblock In {S}t\'efan van~der {W}alt and {J}arrod {M}illman, editors, {\em
+  {P}roceedings of the 9th {P}ython in {S}cience {C}onference}, pages 56 -- 61,
+  2010.
 
 \end{thebibliography}

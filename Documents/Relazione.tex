@@ -67,12 +67,19 @@ Il dataset scelto denominato \emph{Food-101} \cite{food-101} è disponibile sul 
 
 Per tutti e tre i metodi di riconoscimento usati si è fatto uso di un campione di sole 10 classi, prendendo 100 immagini ciascuna per la fase di training e 10 per quella di testing, ridimensionate in un formato 64x64. La scelta di questo insieme ridotto di immagini ha permesso di svolgere le operazioni in tempi relativamente brevi. Solo nel caso delle reti neurali si sono presi in considerazione per ogni categoria anche un training set di 750 immagini e un testing set di 250, prendendo le foto in input con due formati diversi 64x64 e 128x128. Negli altri due casi invece si è visto fin da subito che l'utilizzo di un campione più grande portava a risultati ben peggiori e si sono, per questo motivo, evitati ulteriori test. 
 
+\medskip
+Le immagini del training e testing set sono state estratte attraverso l'uso della libreria Pandas \cite{pandas} e della sua funzione \emph{read\_csv} per leggere i file di testo in cui erano presenti i nomi delle immagini da importare. Ognuna di questa è stata poi introdotta nel codice tramite OpenCV \cite{opencv}, utilizzando rispettivamente le funzioni \emph{imread} e \emph{imresize} per leggere e ridimensionare le foto. 
+
 % Estrazione delle features
 \subsection{Estrazione delle features}
 Per l'estrazione delle features si è fatto uso di una rete neurale disponibile tra i modelli di Torchvision e già richiamata tramite il file \emph{resnet.py} rilasciato per questo progetto. Tale modello è il ResNet-50, definito a partire dalla ricerca \emph{Deep Residual Learning for Image Recognition} \cite{resnet50}.
 
 ResNet-50 è stato usato per i primi due metodi di riconoscimento usati (KNN e SVM), mentre alla rete neurale definita successivamente sono state date direttamente in pasto le immagini del dataset (nel formato specificato sopra).
  
+\medskip
+L'estrazione nel codice è avvenuta attarverso la creazione di una classe \emph{FeatureExtractor} (derivata dal file \emph{resnet.py}) e di un successivo richiamo alla funzione \emph{getFeatures} per ottenere le caratteristiche specifiche di una certa immagine.  
+Per minimizzare ulteriormente le tempistiche, una volta estratte le features per il dataset così definito, quest'ultime vengono salvate in file .csv così da essere recuperate in modo più veloce nelle esecuzioni successive. Per fare ciò ci si è avvalsi delle librerie \emph{csv} e \emph{Numpy} \cite{numpy1}\cite{numpy2} rispettivamente per la scrittura e la lettura dei dati. 
+
 % Metodi di riconoscimento
 \subsection{Metodi di riconoscimento usati}
 I metodi di riconoscimento implementati sono i seguenti. 
@@ -139,11 +146,13 @@ Per la costruzione della rete neurale è stato utilizzato il framework PyTorch \
     \item \emph{torch.optim.SGD} per stabilire l'ottimizzatore e le sue funzioni \emph{step} e \emph{zero\_grad}.
 \end{itemize}
 
+Inoltre si è fatto uso della funzione \emph{np.random.shuffle} \cite{numpy1}\cite{numpy2} per randomizzare l'ordine delle immagini in input all'interno della rete. 
+
 \newpage
 \section{Esperimenti e risultati raggiunti}
 Sfortunatamente, i test eseguiti sui tre diversi metodi di riconoscimento non hanno condotto a ottimi risultati. Il miglior valore di accuratezza, raggiunto tramite il metodo dei \emph{K-Nearest Neighbors}, è stato del 20\%, con valori di precisione e recall rispettivamente pari a 0.33 e 0.34).
 
-In tutti e tre i casi le performance sono state calcolate in base ad accuratezza e secondo i valori di \emph{precision} e \emph{recall}, estratti dalla matrice di confusione calcolata a partire dalle predizioni. 
+In tutti e tre i casi le performance sono state calcolate in base ad accuratezza e secondo i valori di \emph{precision} e \emph{recall}, estratti dalla matrice di confusione calcolata a partire dalle predizioni. Inoltre, alla fine tutte e tre le classificazioni, un set di immagini random viene stampato (tramite la libreria \emph{Matplotlib} \cite{matplotlib}) con le relative etichette trovate dai tre classificatori e i suoi valori \emph{ground truth}.
 
 \medskip
 Per ogni metodo, in particolare, sono stati conseguiti i seguenti risultati. 
@@ -227,6 +236,8 @@ Utilizzando questo tipo di classificazione quindi ci si aspetta al massimo un 16
 
 \section{Conclusioni}
 Le sperimentazioni fatte utilizzando questi tre diversi metodi di classificazione fanno capire, nonostante i bassi risultati raggiunti, come talvolta sistemi più semplici quali i \emph{K-Nearest Neighbors} possono battere le più complesse reti neurali. 
+
+Eseguendo diversi test sui tre classificatori si può inoltre notare come, impostati gli stessi identici input, mentre il metodo dei KNN riporta sempre gli stessi risultati, lo stesso non vale per gli altri due: la SVM può ritornare dei valori di accuratezza che di volta in volta variano anche del 10\%, mentre la rete neurale oscilla su un range del 5\% di accuratezza rispetto ai valori riportati in tabella.
 
 %Le sperimentazioni fatte utilizzando questi tre diversi metodi di classificazione fanno capire innanzitutto come sia necessaria spesso più esperienza e soprattutto molto tempo per poter definire in ogni situazione i migliori parametri da utilizzare. Inoltre, questo progetto ha dimostrato come a volte partire da un dataset molto grande come \emph{Food-101} \cite{food-101} non implichi necessariamente buoni risultati. 
 

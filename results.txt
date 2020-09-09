@@ -61,7 +61,7 @@ NN:
 
 100+10: 
     64x64, 2 epochs, 4 batches, 1e-3 lr: 8% (Precision = 0,08, Recall = 0,40)
-    64x64, 2 epochs, 4 batches, 1e-2 lr: 11% (Precision = 0,11, Recall = 0,55)
+    64x64, 2 epochs, 4 batches, 1e-2 lr: 12% (Precision = 0,13, Recall = 0,40)
     128x128, 2 epochs, 4 batches, 1e-3 lr: 6% (Precision = 0,05, Recall = 0,30)
     128x128, 2 epochs, 4 batches, 1e-2 lr: 7% (Precision = 0,07, Recall = 0,23)
 

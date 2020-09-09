@@ -1,19 +1,19 @@
+import os
 import torch
+import torchvision
+import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
-import torchvision
-import os
-import numpy as np
-from pathlib import Path
 import matplotlib.pyplot as plt
+from pathlib import Path
 from torchvision import transforms as tr
 
-path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101'))
+path = Path(os.path.join('C:/', 'Users', 'ale19', 'Downloads', 'Food-101')) # your path of the dataset
 path_h5 = path
 n_classes = 10
-learning_rate = 1e-2
+learning_rate = 1e-2 # 1e-3 or 1e-2
 batch_size = 4
-epochs = 2
+epochs = 2 # 2 or 5 or 10
 
 class Net(nn.Module):
     def __init__(self):
@@ -41,16 +41,6 @@ class Net(nn.Module):
             num_features *= s
         return num_features
 
-def show(images):
-    fig = plt.figure(figsize=(8, 8))
-    for i in range(4):
-        fig.add_subplot(1, 4, i+1)
-        npimg = images[i].numpy()
-        plt.imshow(np.transpose(npimg, (1, 2, 0)))
-    plt.show()
-    #plt.pause(1)
-    plt.close('all')
-
 
 def nnet(train_set, test_set, train_labels, test_labels, classes):
 
@@ -59,7 +49,7 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
     test_set = np.transpose(test_set, (0, 3, 1, 2))
     train_set = train_set.astype('float32')
     test_set = test_set.astype('float32')
-    print('Dataset loaded.')
+    #print('Dataset loaded.')
 
     indices = np.arange(train_set.shape[0])
     np.random.shuffle(indices)
@@ -79,28 +69,20 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
     test_labels = torch.tensor(test_labels, dtype=torch.long)
 
     # Use torch.true_divide(image, 255) insted
-    transform = tr.Normalize((128, 128, 128), (127, 127, 127)) 
+    #transform = tr.Normalize((128, 128, 128), (127, 127, 127)) 
 
-    # 3. Show some images
-    data_iter = iter(train_loader)
-    images = data_iter.next()
-    for i in range(batch_size):
-        images[i] = torch.true_divide(images[i], 255)
-    #show(images)
-    #print(' '.join('%5s' % classes[int(train_labels[i])] for i in range(4)))
-
-    # 4. Create a model
+    # 3. Create a model
     net = Net()
 
-    # 5. Define a loss function and the optimizer
+    # 4. Define a loss function and the optimizer
     criterion = nn.CrossEntropyLoss() # or MSELoss 
     optimizer = torch.optim.SGD(net.parameters(), lr=learning_rate, momentum=0.9)
     #optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
 
-    # 6. Train the network (if necessary)
+    # 5. Train the network (if necessary)
     net.train()
-    if os.path.isfile('trained_network_epoch.pth'):
-        net.load_state_dict(torch.load('trained_network_epoch.pth'))
+    if os.path.isfile('.pth'):
+        net.load_state_dict(torch.load('.pth'))
     
     else:
         for epoch in range(epochs):  # loop over the dataset multiple times
@@ -111,6 +93,7 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
                 for j in range(curr_size):
                     inputs[j] = torch.true_divide(inputs[j], 255)
                 outputs = net(inputs)
+                
                 #right_prob = torch.zeros([curr_size, n_classes], dtype=torch.float32)
                 #for j in range(curr_size):
                 #    right_prob[j, int(train_labels[i*batch_size+j])] = 1
@@ -133,23 +116,12 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
         torch.save(net.state_dict(), 'trained_network.pth')
 
 
-    # 7. Test the network
+    # 6. Test the network
     net.eval() # disable batch normalization
-    dataiter = iter(test_loader)
-    images = dataiter.next()
-    for i in range(batch_size):
-        images[i] = torch.true_divide(images[i], 255)
-    #show(images)
-    print('GroundTruth: ', ' '.join('%5s' % classes[int(test_labels[i])] for i in range(4)))
-
-    #torch.transpose(images, 1, 3)
-    outputs = net(images)
-    predicted = torch.argmax(outputs, dim=1)
-    print('Predicted: ', ' '.join('%5s' % classes[int(predicted[i])] for i in range(4)))
-
     cmc = np.zeros((n_classes, n_classes))
     correct = 0
     total = 0
+    total_predicted = []
     with torch.no_grad():
         for i, inputs in enumerate(test_loader):
             curr_size = inputs.size()[0]
@@ -157,13 +129,14 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
                 inputs[j] = torch.true_divide(inputs[j], 255)
             outputs = net(inputs)
             predicted = torch.argmax(outputs, dim=1)
+            total_predicted.extend(predicted)
             total += curr_size
             correct += (predicted == test_labels[i*batch_size:(i+1)*batch_size]).sum().item()
             for predict, test_label in zip(predicted, test_labels[i*batch_size:(i+1)*batch_size]):
                 cmc[int(test_label), int(predict)] += 1.0
-            if i % 10 == 0:
-                print(predicted)
-                print(test_labels[i*batch_size:(i+1)*batch_size], end='\n')
+            #if i % 10 == 0:
+                #print(predicted)
+                #print(test_labels[i*batch_size:(i+1)*batch_size], end='\n')
 
     precision = []
     recall = []
@@ -177,10 +150,10 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
 
     print('Accuracy of the network on the test images: {0:.2f} %'.format(100 * correct/total))
     print('Classifier\'s mean precision: ' + "{0:.2f}".format(precision))
-    print('Classifier\'s mean recall : ' + "{0:.2f}".format(recall))
+    print('Classifier\'s mean recall: ' + "{0:.2f}".format(recall))
 
 
-    # 8. Test performance for every class
+    # 7. Test performance for every class
     class_correct = list(0. for i in range(n_classes))
     class_total = list(0. for i in range(n_classes))
     with torch.no_grad():
@@ -196,5 +169,9 @@ def nnet(train_set, test_set, train_labels, test_labels, classes):
                 class_correct[int(label)] += c[j].item()
                 class_total[int(label)] += 1
 
+    print()
     for i in range(n_classes):
-        print('Accuracy of %5s : %2d %%' % (classes[i], 100 * class_correct[i]/class_total[i]))
+        print('Accuracy of %5s: %2d %%' % (classes[i], 100 * class_correct[i]/class_total[i]))
+
+    print()
+    return total_predicted
