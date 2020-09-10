@@ -1,21 +1,21 @@
 # Fdb version 3
-["bibtex Relazione"] 1599645676 "Relazione.aux" "Relazione.bbl" "Relazione" 1599645926
+["bibtex Relazione"] 1599683051 "Relazione.aux" "Relazione.bbl" "Relazione" 1599718622
   "Bibliografia.bib" 1599645651 5168 360323dc5c09358554c84c9637fc3649 ""
-  "Relazione.aux" 1599645925 4052 c49c0a361076e046e2154ade5042c9b4 "pdflatex"
+  "Relazione.aux" 1599718620 4053 dce4b6efa73dde63f4fd64fa1161d4a4 "pdflatex"
   "c:/texlive/2020/texmf-dist/bibtex/bst/base/plain.bst" 1598029449 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   (generated)
-  "Relazione.bbl"
   "Relazione.blg"
-["pdflatex"] 1599645923 "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.tex" "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.pdf" "Relazione" 1599645926
+  "Relazione.bbl"
+["pdflatex"] 1599718619 "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.tex" "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.pdf" "Relazione" 1599718622
   "Relazione-frn.pdf" 1599133341 368075 3b085e7bf754917eb6988bbda9f60a1c ""
-  "Relazione-frn.tex" 1599645925 844 cb748ed068f8b01832d2bbf2ebb846f3 "pdflatex"
-  "Relazione.aux" 1599645925 4052 c49c0a361076e046e2154ade5042c9b4 "pdflatex"
-  "Relazione.bbl" 1599645677 3175 f9a1956d06555fb84b6daa7e99602b96 "bibtex Relazione"
-  "Relazione.out" 1599645925 700 a478ed9156d5ad0de209c4784dbec236 "pdflatex"
-  "Relazione.tex" 1599645921 17048 1306d5a86c4b8056e71520fae3a06067 ""
-  "Relazione.toc" 1599645925 1111 60850cd96d54a8e176a7cbbc163b851d "pdflatex"
-  "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.aux" 1599645925 4052 c49c0a361076e046e2154ade5042c9b4 ""
-  "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.tex" 1599645921 17048 1306d5a86c4b8056e71520fae3a06067 ""
+  "Relazione-frn.tex" 1599718620 844 cb748ed068f8b01832d2bbf2ebb846f3 "pdflatex"
+  "Relazione.aux" 1599718620 4053 dce4b6efa73dde63f4fd64fa1161d4a4 "pdflatex"
+  "Relazione.bbl" 1599683051 3175 f9a1956d06555fb84b6daa7e99602b96 "bibtex Relazione"
+  "Relazione.out" 1599718620 681 817234a5184d5f6c1b27843c7f59599e "pdflatex"
+  "Relazione.tex" 1599718617 17547 74c440fd8117c4d75a8c994a01685156 ""
+  "Relazione.toc" 1599718620 1093 d40c294faa39fbb99422099e47d9c20f "pdflatex"
+  "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.aux" 1599718620 4053 dce4b6efa73dde63f4fd64fa1161d4a4 ""
+  "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.tex" 1599718617 17547 74c440fd8117c4d75a8c994a01685156 ""
   "c:/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1598030094 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map" 1598032790 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2020/texmf-dist/fonts/tfm/jknappen/ec/tcrm1095.tfm" 1598031432 1536 02c06700a42be0f5a28664c7273f82e7 ""
@@ -147,10 +147,10 @@
   "c:/texlive/2020/texmf.cnf" 1598041644 673 4ae7b2f49cee444c5343a45b5d0f169c ""
   (generated)
   "Relazione.aux"
+  "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.log"
+  "Relazione.out"
   "Relazione.toc"
-  "Relazione.pdf"
   "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.pdf"
   "Relazione-frn.tex"
-  "Relazione.out"
-  "c:/Users/ale19/Desktop/FoodRecognition/Documents/Relazione.log"
+  "Relazione.pdf"
   "Relazione.log"

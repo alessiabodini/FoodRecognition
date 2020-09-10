@@ -1,4 +1,4 @@
-\BOOKMARK [1][-]{section.1}{Motivazioni e fondamento logico}{}% 1
+\BOOKMARK [1][-]{section.1}{Motivazioni}{}% 1
 \BOOKMARK [1][-]{section.2}{Stato dell'arte}{}% 2
 \BOOKMARK [1][-]{section.3}{Obbiettivi}{}% 3
 \BOOKMARK [1][-]{section.4}{Metodologia}{}% 4
@@ -8,5 +8,5 @@
 \BOOKMARK [1][-]{section.5}{Esperimenti e risultati raggiunti}{}% 8
 \BOOKMARK [2][-]{subsection.5.1}{KNN}{section.5}% 9
 \BOOKMARK [2][-]{subsection.5.2}{SVM}{section.5}% 10
-\BOOKMARK [2][-]{subsection.5.3}{NN}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.3}{DNN}{section.5}% 11
 \BOOKMARK [1][-]{section.6}{Conclusioni}{}% 12
