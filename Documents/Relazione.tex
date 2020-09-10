@@ -45,11 +45,11 @@
 
 % MOTIVAZIONI
 \section{Motivazioni}
-Il seguente progetto si pone lo scopo di identificare una serie di cibi facendo uso di modelli visti durante il corso di studio. Tale tipo di riconoscimento può risultare molto utile per quanto riguarda la classificazione di piatti in tutto il mondo, ad esempio per viaggiotori o stranieri che vogliono avere maggiori informazioni su alcuni piatti o per coloro che sono interessati a conoscere i valori nutrizionali del cibo proposto, il tutto con una sola foto. 
+Il seguente progetto si pone lo scopo di identificare una serie di cibi facendo uso di modelli visti durante il corso di studio. Tale tipo di riconoscimento può risultare molto utile per quanto riguarda la classificazione di piatti in tutto il mondo. Si pensi ad esempio a viaggiotori o stranieri che vogliono avere maggiori informazioni su alcuni piatti o per coloro che sono interessati a conoscere i valori nutrizionali del cibo proposto, il tutto con una sola foto. 
 
 % STATO DELL'ARTE
 \section{Stato dell'arte}
-L'applicazione maggiormente conosciuta per quanto riguardo il riconoscimento di cibi è al momento \emph{Calorie Mama} \cite{calorie-mama}. Tale applicazione è disponibile per Apple e Android e permette non solo di riconoscere i cibi ma anche di mostrarne i valori nutrizionali e di far gestire all'utente le calorie assunte giornalmente e relativi programmi di fitness. La funzione di \textit{istant food recognition} viene alimentata da \textit{Food AI API} \cite{foodai} basata sulle ultime innovazioni in campo di deep learning e in grado di riconoscere ad oggi 756 cibi diversi (gran parte cibi tipici di Singapore). Ogni piatto viene poi legato a specifici valori nutrizionali che l'utente utilizza per controllare le proprie diete direttamente dall'app.
+L'applicazione maggiormente conosciuta per quanto riguarda il riconoscimento di cibi è al momento \emph{Calorie Mama} \cite{calorie-mama}. Tale applicazione è disponibile per Apple e Android e permette non solo di riconoscere i cibi ma anche di mostrarne i valori nutrizionali e di far gestire all'utente le calorie assunte giornalmente. La funzione di \textit{istant food recognition} viene alimentata da \textit{Food AI API} \cite{foodai} basata sulle ultime innovazioni in campo di deep learning e in grado di riconoscere ad oggi 756 cibi diversi (gran parte cibi tipici di Singapore). Ogni piatto viene poi legato a specifici valori nutrizionali che l'utente utilizza per controllare le proprie diete direttamente dall'app.
 
 % OBBIETTIVI
 \section{Obbiettivi}
@@ -59,13 +59,13 @@ Il mio progetto non si pone di superare i risultati già raggiunti dall'applicaz
 
 % METODOLOGIA 
 \section{Metodologia}
-Il lavoro si è suddiviso nella ricerca di un dataset, con relativa estrazione dei dati e delle features, e nell'implementazione di alcuni dei modelli di riconoscimento visti durante il corso. Si spiegano ora nei dettagli queste tre diverse fasi. 
+Il lavoro in sè si è suddiviso nella ricerca di un dataset, con relativa estrazione dei dati e delle features, e nell'implementazione di alcuni dei modelli di riconoscimento visti durante il corso. Si spiegano ora nei dettagli queste tre diverse fasi. 
 
 % Ricerca del dataset
 \subsection{Ricerca del dataset}
-Il dataset scelto, denominato \emph{Food-101} \cite{food-101}, è disponibile sul sito \href{https://www.kaggle.com/kmader/food41}{kaggle.com} e presenta un totale di 10100 fotografie di piatti e cibi diversi. In particolare, l'insieme è suddiviso in 101 categorie di cibi, ognuna composta da 1000 foto. La classe di appartenza è deducibile dalla cartella in cui essa è contenuta. 
+Il dataset scelto, denominato \emph{Food-101} \cite{food-101}, è disponibile sul sito \href{https://www.kaggle.com/kmader/food41}{kaggle.com} e presenta un totale di 101000 fotografie di piatti e cibi diversi. In particolare, l'insieme è suddiviso in 101 categorie di cibi, ognuna composta da 1000 foto. La classe di appartenza è deducibile dalla cartella in cui essa è contenuta. 
 
-Per tutti e tre i metodi di riconoscimento usati si è fatto uso di un campione di sole 10 classi, prendendo 100 immagini ciascuna per la fase di training e 10 per quella di testing, ridimensionate in un formato 64x64. La scelta di questo insieme ridotto di immagini ha permesso di svolgere le operazioni in tempi relativamente brevi. Solo nel caso delle reti neurali si sono presi in considerazione per ogni categoria anche un training set di 750 immagini e un testing set di 250, prendendo le foto in input con due formati diversi 64x64 e 128x128. Negli altri due casi invece si è visto fin da subito che l'utilizzo di un campione più grande portava a risultati ben peggiori e si sono evitati ulteriori test. 
+Per tutti e tre i metodi di riconoscimento usati si è fatto uso di un campione di sole 10 classi, prendendo 100 immagini ciascuna per la fase di training e 10 per quella di testing, ridimensionate in un formato 64x64. La scelta di questo insieme ridotto di immagini ha permesso di svolgere le operazioni in tempi relativamente brevi. Solo nel caso delle reti neurali si sono presi in considerazione per ogni categoria anche un training set di 750 immagini e un testing set di 250, prendendo le foto in input con due formati diversi, 64x64 e 128x128. Negli altri due casi invece si è visto fin da subito che l'utilizzo di un campione più grande non portava alcun tipo di miglioramento e si sono evitati ulteriori test. 
 
 \medskip
 Le immagini del training e testing set sono state estratte attraverso l'uso della libreria Pandas \cite{pandas} e della sua funzione \emph{read\_csv} per leggere i file di testo in cui erano presenti i nomi delle immagini da importare. Ognuna di queste foto è stata poi introdotta nel codice tramite la libreria OpenCV \cite{opencv}, utilizzando rispettivamente le funzioni \emph{imread} e \emph{imresize} per leggere e ridimensionare le foto (nel formato specificato sopra).
@@ -111,7 +111,7 @@ Per l'implementazione della \emph{Support Vector Machine} si sono presi in consi
 \begin{itemize}
     \item lineare; 
     \item polinomiale, con grado pari a 3, 5 e 7;
-    \item RBF (\emph{Radial Basis Function}), usando diversi valori per \emph{gamma} ($\frac{1}{n\_features})$ se posta uguale a \emph{auto} o $\frac{1}{n\_features \times set\_variance}$ se posta su \emph{scale}) e di \emph{C} (0.1 e 1).
+    \item RBF (\emph{Radial Basis Function}), usando diversi valori per \emph{gamma} ($\frac{1}{n\_features}$ se posta uguale a \emph{auto} o $\frac{1}{n\_features \times set\_variance}$ se posta su \emph{scale}) e di \emph{C} (0.1 e 1).
 \end{itemize}
 Per tutti i casi si è testato il modello su 10, 100 e 1000 iterazioni totali.
 
@@ -130,7 +130,7 @@ La rete nurale è stata creata ad hoc per il dataset e comprende 6 diversi strat
     \item convoluzione 2D con kernel di dimensione 3x3, passando da 3 canali in input (RGB) a 6 finali;
     \item \emph{max-pooling} di dimensione 2x2;
     \item seconda convoluzione 2D con uguale kernel (3x3), passando da 6 canali in input a 16 in output;
-    \item trasformazione lineare che prende come features in input l'insieme dei valori che riguardano l'immagine come finora è stata modificata, cioè con $16 \times 14$ (o 30) $\times 14$ (o 30) ($numero di canali \times altezza \times larghezza$), che confluiscono in 2048 features in output;
+    \item trasformazione lineare che prende come features in input l'insieme dei valori che riguardano l'immagine come finora è stata modificata, cioè con $16 \times 14$ (o 30) $\times 14$ (o 30) ($numero\_di\_canali \times altezza \times larghezza$), che confluiscono in 2048 features in output;
     \item seconda trasformazione lineare che riduce le features in 1024;
     \item terza e ultima trasformazione lineare che da 1024 features passa a sole 10 che rappresentano il numero di classi finali di appartenza. La feature tra le 10 finali che presenta il valore più alto sarà identificata come la classe di appartenza.
 \end{enumerate}
@@ -139,7 +139,7 @@ Tale configurazione è stata ispirata da quella presente in nel tutorial di PyTo
 \medskip 
 Per la costruzione della rete neurale è stato utilizzato il framework PyTorch \cite{pytorch} e in particolare:
 \begin{itemize}
-    \item \emph{torch.utils.data.DataLoader}: produce dataset sotto forma di tensore su cui iterare;
+    \item \emph{torch.utils.data.DataLoader}: produce il dataset sotto forma di tensore su cui iterare;
     \item \emph{torch.true\_divide} per normalizzare i valori in input dei pixel (da 0-255 a 0-1);
     \item \emph{torch.nn.Module, torch.nn.Conv2d, torch.nn.MaxPool2d, torch.nn.Linear, torch.nn.functional.relu} per definire la topologia della rete neurale;
     \item \emph{torch.nn.CrossEntropyLoss} per definire la funzione di perdita e la relativa funzione di \emph{backwards}. In generale, una \emph{Cross-entropy loss} si occupa di misurare le performance di un classificatore i cui ouput (per ogni classe) sono rappresentati da un valore di probabilità tra 0 e 1. Il valore di perdita ritornato incrementa col divergere del valore predetto da quello dell'etichetta effettiva;
@@ -155,7 +155,7 @@ Sfortunatamente, i test eseguiti sui tre diversi metodi di riconoscimento non ha
 In tutti e tre i casi le performance sono state calcolate in base ad accuratezza e secondo i valori di \emph{precision} e \emph{recall}, estratti dalla matrice di confusione calcolata a partire dalle predizioni. Inoltre, alla fine tutte e tre le classificazioni, un set di immagini randomiche viene stampato (tramite la libreria \emph{Matplotlib} \cite{matplotlib}) con le relative etichette trovate dai tre classificatori e i suoi valori \emph{ground truth}.
 
 \medskip
-Per ogni metodo, in particolare, sono stati conseguiti i seguenti risultati. 
+Da ogni metodo, in particolare, sono stati raggiunti i seguenti risultati. 
 
 \subsection{KNN}
 \begin{table}[h]
@@ -235,10 +235,8 @@ Per addestrare la rete neurale sono state fatte molte prove differenti, in base 
 Utilizzando questo tipo di classificazione quindi ci si aspetta al massimo un 16\% di accuratezza, con valori di precisione e recall rispettivamente pari a 0.22 e 0.40.
 
 \section{Conclusioni}
-Le sperimentazioni fatte utilizzando questi tre diversi metodi di classificazione fanno capire, nonostante i bassi risultati raggiunti, come talvolta sistemi più semplici quali i \emph{K-Nearest Neighbors} possono battere le più complesse reti neurali. 
-Eseguendo diversi test sui tre classificatori si può inoltre notare come, impostati gli stessi identici input, mentre il metodo dei KNN riporta sempre gli stessi risultati, lo stesso non vale per gli altri due: la SVM può ritornare dei valori di accuratezza che di volta in volta variano anche del 10\%, mentre la rete neurale oscilla su un range del 5\% di accuratezza rispetto ai valori riportati in tabella.
-
-%Le sperimentazioni fatte utilizzando questi tre diversi metodi di classificazione fanno capire innanzitutto come sia necessaria spesso più esperienza e soprattutto molto tempo per poter definire in ogni situazione i migliori parametri da utilizzare. Inoltre, questo progetto ha dimostrato come a volte partire da un dataset molto grande come \emph{Food-101} \cite{food-101} non implichi necessariamente buoni risultati. 
+Le sperimentazioni fatte utilizzando questi tre diversi metodi di classificazione fanno capire, nonostante i bassi valori di accuratezza raggiunti, come talvolta sistemi più semplici quali i \emph{K-Nearest Neighbors} possono condurre a risultati migliori delle più complesse reti neurali. 
+Eseguendo diversi test sui tre classificatori si può inoltre notare come, impostati gli stessi identici input, mentre il metodo dei KNN riporta sempre gli stessi risultati, lo stesso non vale per gli altri due. La SVM infatti può ritornare dei valori di accuratezza che di volta in volta variano anche del 10\%, mentre la rete neurale oscilla su un range del 5\% di accuratezza rispetto ai valori riportati in tabella.
 
 \pagebreak
 \bibliography{Bibliografia}{}
